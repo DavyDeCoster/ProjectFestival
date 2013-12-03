@@ -1,0 +1,31 @@
+﻿<Window x:Class="Festival__App_Second.view.Festival_Aanpassen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Festival_Aanpassen" Height="300" Width="305">
+    <Grid x:Name="LayoutRoot" Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="lblNaam" HorizontalAlignment="Center" Height="24.529" Margin="5" VerticalAlignment="Center" Width="91.873"><Run Language="nl-be" Text="Naam:"/></TextBlock>
+        <TextBox x:Name="txtNaam" HorizontalAlignment="Center" Height="24.615" Margin="5"  TextWrapping="Wrap" VerticalAlignment="Center" Width="127.18" Grid.Column="1"/>
+        <RadioButton x:Name="rd1Daags" Content="1-daags festival" HorizontalAlignment="Center" Height="24.615" Margin="5" VerticalAlignment="Center" Width="107.693" Grid.Row="1"/>
+        <RadioButton x:Name="rdMeerdaags" Content="Meerdaags festival" HorizontalAlignment="Center" Height="24.615" Margin="5" VerticalAlignment="Center" Width="130.257" Grid.Row="1" Grid.Column="1"/>
+        <TextBlock x:Name="lblDatum" HorizontalAlignment="Center" Height="22.693" Margin="5"  VerticalAlignment="Center" Width="74.872" Grid.Row="2"><Run Language="nl-be" Text="Datum:"/></TextBlock>
+        <DatePicker x:Name="oDatePicker" Margin="12.564,10.222,12.564,10.221" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="127.18"/>
+        <TextBlock x:Name="lblLocatie" HorizontalAlignment="Left" Height="21.538" Margin="38.974,13.135,0,0"  VerticalAlignment="Top" Width="65.641" Grid.Row="3"><Run Language="nl-be" Text="Locatie:"/></TextBlock>
+        <TextBox x:Name="txtLocatie" HorizontalAlignment="Center" Height="21.668" Margin="5"  TextWrapping="Wrap" VerticalAlignment="Center" Width="129.743" Grid.Row="3" Grid.Column="1"/>
+        <TextBox x:Name="txtRss" HorizontalAlignment="Center" Height="25.642" Margin="5"  TextWrapping="Wrap" VerticalAlignment="Center" Width="127.18" Grid.Row="4" Grid.Column="1"/>
+        <TextBlock x:Name="lblRss" HorizontalAlignment="Center" Height="23.59" Margin="5" VerticalAlignment="Center" Width="48.334" Grid.Row="4"><Run Language="nl-be" Text="RSS"/></TextBlock>
+        <Button x:Name="btnOpslaan" Content="Opslaan" HorizontalAlignment="Center" Height="24.756" Margin="5" VerticalAlignment="Center" Width="129.231" Grid.Row="5" Grid.ColumnSpan="2">
+        </Button>
+    </Grid>
+</Window>
