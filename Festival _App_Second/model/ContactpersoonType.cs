@@ -8,9 +8,9 @@ namespace Festival.Model
 {
     public class ContactpersoonType
     {
-        private String _id;
+        private int _id;
 
-        public String ID
+        public int ID
         {
             get { return _id; }
             set { _id = value; }

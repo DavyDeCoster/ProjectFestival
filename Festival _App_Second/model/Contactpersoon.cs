@@ -4,14 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Festival.Model;
+using System.Collections.ObjectModel;
+using System.Data.Common;
+using DBHelper;
 
 namespace Festival.Model
 {
     public class Contactpersoon
     {
-        private String _id;
+        private int _id;
 
-        public String ID
+        public int ID
         {
             get { return _id; }
             set { _id = value; }
@@ -87,7 +90,41 @@ namespace Festival.Model
             get { return _print; }
             set { _print = value; }
         }
-        
+
+        public static ObservableCollection<Contactpersoon> GetContacts()
+        {
+            ObservableCollection<Contactpersoon> ocContact = new ObservableCollection<Contactpersoon>();
+            string sSql = "select * from Contactpersoon INNER JOIN ContactpersoonType on Contactpersoon.Jobrole = ContactpersoonType.Id INNER JOIN Access on Contactpersoon.Accesszone = Access.Id";
+            DbDataReader reader = Database.GetData(sSql);
+            while (reader.Read())
+            {
+                ContactpersoonType conType = new ContactpersoonType()
+                {
+                    ID = (int)reader[10],
+                    Name = (string)reader[11]
+                };
+                Access acc = new Access()
+                {
+                    Id = (int)reader[12],
+                    Name = (string)reader[13]
+                };
+
+                Contactpersoon person = new Contactpersoon()
+                {
+                    ID = (int)reader[0],
+                    Name = (string)reader[1],
+                    Company = (string)reader[2],
+                    JobRole = conType,
+                    Accesszone = acc,
+                    City = (string)reader[5],
+                    Email = (string)reader[6],
+                    Phone = (string)reader[7],
+                    Print = (bool)reader[8]
+                };
+                ocContact.Add(person);
+            }
+            return ocContact;
+        }
         
     }
 }

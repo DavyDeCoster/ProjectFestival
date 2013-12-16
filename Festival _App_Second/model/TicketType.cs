@@ -1,5 +1,8 @@
-﻿using System;
+﻿using DBHelper;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,9 +11,9 @@ namespace Festival.Model
 {
     public class TicketType
     {
-        private String _id;
+        private int _id;
 
-        public String ID
+        public int ID
         {
             get { return _id; }
             set { _id = value; }
@@ -39,6 +42,24 @@ namespace Festival.Model
             get { return _availableTickets; }
             set { _availableTickets = value; }
         }
-        
+
+        public static ObservableCollection<TicketType> GetTicketType()
+        {
+            ObservableCollection<TicketType> ocTicketType = new ObservableCollection<TicketType>();
+            string sSql = "Select * from TicketType";
+            DbDataReader reader = Database.GetData(sSql);
+            while (reader.Read())
+            {
+                TicketType tt = new TicketType()
+                {
+                    ID = (int)reader[0],
+                    Name = (string)reader[1],
+                    Price = (double)reader[2],
+                    AvailableTickets = (int)reader[3]
+                };
+                ocTicketType.Add(tt);
+            }
+            return ocTicketType;
+        }
     }
 }
