@@ -1,4 +1,4 @@
-﻿using DBHelper;
+﻿using Festival.Model.DAL;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -55,7 +55,7 @@ namespace Festival.Model
         {
             ObservableCollection<Ticket> ocTicket = new ObservableCollection<Ticket>();
             string sSql = "Select * from Ticket INNER JOIN TicketType on Ticket.TicketType = TicketType.Id";
-            DbDataReader reader = Database.GetData(sSql);
+            DbDataReader reader = DbAccess.GetData(sSql);
             while (reader.Read())
             {
                 TicketType tt = new TicketType()

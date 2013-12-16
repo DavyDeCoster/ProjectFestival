@@ -1,4 +1,4 @@
-﻿using DBHelper;
+﻿using Festival.Model.DAL;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -47,7 +47,7 @@ namespace Festival.Model
         {
             ObservableCollection<TicketType> ocTicketType = new ObservableCollection<TicketType>();
             string sSql = "Select * from TicketType";
-            DbDataReader reader = Database.GetData(sSql);
+            DbDataReader reader = DbAccess.GetData(sSql);
             while (reader.Read())
             {
                 TicketType tt = new TicketType()

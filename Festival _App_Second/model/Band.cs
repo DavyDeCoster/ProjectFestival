@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using System.Data.Common;
+using Festival.Model.DAL;
 
 namespace Festival.Model
 {
@@ -64,6 +66,23 @@ namespace Festival.Model
             get { return _genres; }
             set { _genres = value; }
         }
+        
+        public static ObservableCollection<Band> GetBands()
+        {
+            ObservableCollection<Band> ocFestival = new ObservableCollection<Band>();
+            string sSql = "Select * from Band INNER JOIN BandGenre on Band.Genre = BandGenre.Id";
+            DbDataReader reader = DbAccess.GetData(sSql);
+            while (reader.Read())
+            {
+                Band b = new Band()
+                {
+                    
+                };
+                ocFestival.Add(b);
+            }
+            return ocFestival;
+        }
+
         
     }
 }

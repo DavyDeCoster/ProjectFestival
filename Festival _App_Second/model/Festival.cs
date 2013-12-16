@@ -1,4 +1,4 @@
-﻿using DBHelper;
+﻿using Festival.Model.DAL;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -39,15 +39,14 @@ namespace Festival.Model
         {
             ObservableCollection<Festival> ocFestival = new ObservableCollection<Festival>();
             string sSql = "Select * from Festival";
-            DbDataReader reader = Database.GetData(sSql);
+            DbDataReader reader = DbAccess.GetData(sSql);
             while (reader.Read())
             {
                 Festival fest = new Festival()
                 {
-                    ID = (int)reader[0],
-                    StartDate = (DateTime)reader[1],
-                    EndDate = (DateTime)reader[2],
-                    RSS = (string)reader[3]
+                    StartDate = (DateTime)reader[0],
+                    EndDate = (DateTime)reader[1],
+                    RSS = (string)reader[2]
                 };
                 ocFestival.Add(fest);
             }

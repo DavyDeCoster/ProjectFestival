@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Festival.Model;
 using System.Collections.ObjectModel;
 using System.Data.Common;
-using DBHelper;
+using Festival.Model.DAL;
 
 namespace Festival.Model
 {
@@ -95,7 +95,7 @@ namespace Festival.Model
         {
             ObservableCollection<Contactpersoon> ocContact = new ObservableCollection<Contactpersoon>();
             string sSql = "select * from Contactpersoon INNER JOIN ContactpersoonType on Contactpersoon.Jobrole = ContactpersoonType.Id INNER JOIN Access on Contactpersoon.Accesszone = Access.Id";
-            DbDataReader reader = Database.GetData(sSql);
+            DbDataReader reader = DbAccess.GetData(sSql);
             while (reader.Read())
             {
                 ContactpersoonType conType = new ContactpersoonType()

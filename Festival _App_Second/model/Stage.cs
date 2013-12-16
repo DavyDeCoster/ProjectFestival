@@ -1,4 +1,4 @@
-﻿using DBHelper;
+﻿using Festival.Model.DAL;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -31,15 +31,15 @@ namespace Festival.Model
 
         public string Color
         {
-            get { return _colour; }
-            set { _colour = value; }
+            get { return _color; }
+            set { _color = value; }
         }
 
         public static ObservableCollection<Stage> GetStages()
         {
             ObservableCollection<Stage> ocStages = new ObservableCollection<Stage>();
             string sSql = "Select * from Stage";
-            DbDataReader reader = Database.GetData(sSql);
+            DbDataReader reader = DbAccess.GetData(sSql);
             while (reader.Read())
             {
                 Stage Stage = new Stage()
