@@ -35,7 +35,7 @@ namespace Festival.Model
             {
                 Access a = new Access()
                 {
-                    ID = (int)reader[0],
+                    Id = (int)reader[0],
                     Name = (string)reader[1]
                 };
                 ocAccess.Add(a);

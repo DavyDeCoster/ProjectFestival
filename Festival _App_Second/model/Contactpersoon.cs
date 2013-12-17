@@ -98,32 +98,52 @@ namespace Festival.Model
             DbDataReader reader = DbAccess.GetData(sSql);
             while (reader.Read())
             {
-                ContactpersoonType conType = new ContactpersoonType()
-                {
-                    ID = (int)reader[10],
-                    Name = (string)reader[11]
-                };
-                Access acc = new Access()
-                {
-                    Id = (int)reader[12],
-                    Name = (string)reader[13]
-                };
+                ContactpersoonType conType = MakeContactpersoonType(reader);
+                Access acc = MakeAccess(reader);
 
-                Contactpersoon person = new Contactpersoon()
-                {
-                    ID = (int)reader[0],
-                    Name = (string)reader[1],
-                    Company = (string)reader[2],
-                    JobRole = conType,
-                    Accesszone = acc,
-                    City = (string)reader[5],
-                    Email = (string)reader[6],
-                    Phone = (string)reader[7],
-                    Print = (bool)reader[8]
-                };
+                Contactpersoon person = MakeContactpersoon(reader, conType, acc);
+
                 ocContact.Add(person);
             }
             return ocContact;
+        }
+
+        private static Contactpersoon MakeContactpersoon(DbDataReader reader, ContactpersoonType conType, Access acc)
+        {
+            Contactpersoon person = new Contactpersoon()
+                 {
+                     ID = (int)reader[0],
+                     Name = (string)reader[1],
+                     Company = (string)reader[2],
+                     JobRole = conType,
+                     Accesszone = acc,
+                     City = (string)reader[5],
+                     Email = (string)reader[6],
+                     Phone = (string)reader[7],
+                     Cellphone = (string)reader[8],
+                     Print = (bool)reader[9]
+                 };
+            return person;
+        }
+
+        private static Access MakeAccess(DbDataReader reader)
+        {
+            Access acc = new Access()
+            {
+                Id = (int)reader[12],
+                Name = (string)reader[13]
+            };
+            return acc;
+        }
+
+        private static ContactpersoonType MakeContactpersoonType(DbDataReader reader)
+        {
+            ContactpersoonType conType = new ContactpersoonType()
+            {
+                ID = (int)reader[10],
+                Name = (string)reader[11]
+            };
+            return conType;
         }
 
         public static Contactpersoon GetContactById(int id)
@@ -139,6 +159,7 @@ namespace Festival.Model
 
             return null;
         }
-        
+
+        public static Contactpersoon UpdateContact(
     }
 }

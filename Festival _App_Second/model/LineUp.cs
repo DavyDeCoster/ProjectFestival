@@ -13,7 +13,7 @@ namespace Festival.Model
     {
         private int _id;
 
-        public int ID
+        public int Id
         {
             get { return _id; }
             set { _id = value; }
@@ -70,8 +70,8 @@ namespace Festival.Model
                 {
                     Id = (int)reader[0],
                     Date = (DateTime)reader[1],
-                    From = (DateTime)reader[2],
-                    Until = (DateTime)reader[3],
+                    From = (string)reader[2],
+                    Until = (string)reader[3],
                     Stage = Stage.GetStageById((int)reader[4]),
                     Band = Band.GetBandById((int)reader[5]),
                 };
@@ -85,7 +85,7 @@ namespace Festival.Model
             ObservableCollection<LineUp> ocLineUp = GetLineUp();
             foreach (LineUp l in ocLineUp)
             {
-                if (l.ID == id)
+                if (l.Id == id)
                 {
                     return l;
                 }

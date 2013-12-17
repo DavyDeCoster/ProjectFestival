@@ -3,8 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewModel="clr-namespace:Festival__App_Second.viewmodel"
              mc:Ignorable="d" 
              Height="630" Width="933">
+    <UserControl.DataContext>
+        <viewModel:ContactVM/>
+    </UserControl.DataContext>
     <Grid HorizontalAlignment="Left" Height="611" VerticalAlignment="Top" Width="922" Margin="0,-5,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -18,20 +22,25 @@
             <RowDefinition Height="475*"/>
             <RowDefinition Height="95*"/>
         </Grid.RowDefinitions>
-        <DataGrid HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.486,0.478" Height="455" Width="902" Grid.ColumnSpan="5">
+        <DataGrid HorizontalAlignment="Left" ItemsSource="{Binding Contacts}" SelectedItem="{Binding SelectedContact}" AutoGenerateColumns="False" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="455" Width="900" Grid.ColumnSpan="5">
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="clmNaam" Header="Naam"/>
-                <DataGridTextColumn x:Name="clmTelefoon" Header="Telefoon"/>
-                <DataGridComboBoxColumn x:Name="clmFunctie" Header="Functie"/>
-                <DataGridComboBoxColumn x:Name="clmAccess" Header="Access"/>
-                <DataGridCheckBoxColumn x:Name="clmPrint" Header="Badge Geprint"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Company"  Binding="{Binding Company}"/>
+                <DataGridTextColumn Header="Job"  Binding="{Binding JobRole.Name}"/>
+                <DataGridTextColumn Header="Access"  Binding="{Binding Accesszone.Name}"/>
+                <DataGridTextColumn Header="City"  Binding="{Binding City}"/>
+                <DataGridTextColumn Header="Email"  Binding="{Binding Email}"/>
+                <DataGridTextColumn Header="Phone"  Binding="{Binding Phone}"/>
+                <DataGridTextColumn Header="Cellphone"  Binding="{Binding Cellphone}"/>
+                <DataGridCheckBoxColumn Header="Geprint"  Binding="{Binding Print}"/>
+                
             </DataGrid.Columns>
         </DataGrid>
         <TextBlock x:Name="lblFilter" HorizontalAlignment="Center" Height="20" Margin="18,10,17,11" TextWrapping="Wrap" VerticalAlignment="Center" Width="36" Foreground="Black"><Run Language="nl-be" Text="Filter:"/></TextBlock>
         <TextBlock x:Name="lblNaam" Grid.Column="1" HorizontalAlignment="Center" Height="24" Margin="162,8,12,9" TextWrapping="Wrap" VerticalAlignment="Center" Width="39" Foreground="Black"><Run Language="nl-be" Text="Naam:"/></TextBlock>
         <TextBox x:Name="txtNaam" Grid.Column="2" HorizontalAlignment="Center" Height="24" Margin="10,8,10,9" TextWrapping="Wrap" VerticalAlignment="Center" Width="192"/>
         <TextBlock x:Name="lblFuncties" Grid.Column="3" HorizontalAlignment="Center" Height="24" Margin="157,10,10,7" TextWrapping="Wrap" VerticalAlignment="Center" Width="46" Foreground="Black"><Run Language="nl-be" Text="Functie:"/></TextBlock>
-        <ComboBox x:Name="cboFunctie" Grid.Column="4" HorizontalAlignment="Center" Margin="10,10,10,9" VerticalAlignment="Center" Width="193" Height="22"/>
+        <ComboBox x:Name="cboFunctie" ItemsSource="{Binding ConType}" DisplayMemberPath="Name" Grid.Column="4" HorizontalAlignment="Center" Margin="10,10,10,9" VerticalAlignment="Center" Width="193" Height="22"/>
         <Button x:Name="btnPrint" Content="Print" Grid.Column="4" HorizontalAlignment="Left" Height="37" Margin="120,5,0,0" Grid.Row="2" VerticalAlignment="Top" Width="83"/>
         <Button x:Name="btnVerwijderen" Content="Verwijderen" Grid.Column="4" HorizontalAlignment="Left" Height="37" Margin="10,5,0,0" Grid.Row="2" VerticalAlignment="Top" Width="83"/>
         <Button x:Name="BtnToevoegen" Content="Toevoegen" Grid.Column="3" HorizontalAlignment="Left" Height="37" Margin="120,5,0,0" Grid.Row="2" VerticalAlignment="Top" Width="83"/>
