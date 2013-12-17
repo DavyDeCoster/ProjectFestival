@@ -61,5 +61,19 @@ namespace Festival.Model
             }
             return ocTicketType;
         }
+
+        public static TicketType GetTicketTypeById(int id)
+        {
+            ObservableCollection<TicketType> ocTicketType = GetTicketType();
+            foreach (TicketType tt in ocTicketType)
+            {
+                if (tt.ID == id)
+                {
+                    return tt;
+                }
+            }
+
+            return null;
+        }
     }
 }

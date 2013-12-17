@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Festival.Model.DAL;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,6 +57,41 @@ namespace Festival.Model
         {
             get { return _band; }
             set { _band = value; }
+        }
+        
+        public static ObservableCollection<LineUp> GetLineUp()
+        {
+            ObservableCollection<LineUp> ocLineUp = new ObservableCollection<LineUp>();
+            string sSql = "Select * from LineUp";
+            DbDataReader reader = DbAccess.GetData(sSql);
+            while (reader.Read())
+            {
+                LineUp Line = new LineUp()
+                {
+                    Id = (int)reader[0],
+                    Date = (DateTime)reader[1],
+                    From = (DateTime)reader[2],
+                    Until = (DateTime)reader[3],
+                    Stage = Stage.GetStageById((int)reader[4]),
+                    Band = Band.GetBandById((int)reader[5]),
+                };
+                ocLineUp.Add(Line);
+            }
+            return ocLineUp;
+        }
+
+        public static LineUp GetLineUpById(int id)
+        {
+            ObservableCollection<LineUp> ocLineUp = GetLineUp();
+            foreach (LineUp l in ocLineUp)
+            {
+                if (l.ID == id)
+                {
+                    return l;
+                }
+            }
+
+            return null;
         }
         
     }

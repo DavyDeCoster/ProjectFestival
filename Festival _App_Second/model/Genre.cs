@@ -43,5 +43,20 @@ namespace Festival.Model
             }
             return ocGenre;
         }
+
+        public static Genre GetGenreById(int id)
+        {
+            ObservableCollection<Genre> ocGenre = GetGenres();
+
+            foreach (Genre g in ocGenre)
+            {
+                if (id == g.ID)
+                {
+                    return g;
+                }
+            }
+
+            return null;
+        }
     }
 }

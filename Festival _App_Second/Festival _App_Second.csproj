@@ -67,7 +67,6 @@
     <Compile Include="model\Contactpersoon.cs" />
     <Compile Include="model\ContactpersoonType.cs" />
     <Compile Include="model\DAL\DbAccess.cs" />
-    <Compile Include="model\DbDataReader.cs" />
     <Compile Include="model\Festival.cs" />
     <Compile Include="model\Genre.cs" />
     <Compile Include="model\LineUp.cs" />

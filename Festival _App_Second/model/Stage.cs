@@ -52,5 +52,18 @@ namespace Festival.Model
             }
             return ocStages;
         }
+
+        public static Stage GetStageById(int id)
+        {
+            ObservableCollection<Stage> ocStages= GetStages();
+            foreach (Stage s in ocStages)
+            {
+                if (s.ID == id)
+                {
+                    return s;
+                }
+            }
+            return null;
+        }
     }
 }

@@ -125,6 +125,20 @@ namespace Festival.Model
             }
             return ocContact;
         }
+
+        public static Contactpersoon GetContactById(int id)
+        {
+            ObservableCollection<Contactpersoon> ocContact = GetContacts();
+            foreach (Contactpersoon c in ocContact)
+            {
+                if (c.ID == id)
+                {
+                    return c;
+                }
+            }
+
+            return null;
+        }
         
     }
 }

@@ -72,15 +72,39 @@ namespace Festival.Model
             ObservableCollection<Band> ocFestival = new ObservableCollection<Band>();
             string sSql = "Select * from Band INNER JOIN BandGenre on Band.Genre = BandGenre.Id";
             DbDataReader reader = DbAccess.GetData(sSql);
+            ObservableCollection<Genre> ocGenre = new ObservableCollection<Genre>();
             while (reader.Read())
             {
+                ocGenre.Add(Genre.GetGenreById((int)reader[8]));
+                ocGenre.Add(Genre.GetGenreById((int)reader[7]));
                 Band b = new Band()
                 {
-                    
+                    ID = (int)reader[0],
+                    Name = (string)reader[1],
+                    Picture = (string)reader[2],
+                    Description = (string)reader[3],
+                    Twitter = (string)reader[4],
+                    Facebook = (string)reader[5],
+                    Genres = ocGenre
                 };
                 ocFestival.Add(b);
             }
             return ocFestival;
+        }
+
+        public static Band GetBandById(int id)
+        {
+            ObservableCollection<Band> ocBands = GetBands();
+
+            foreach (Band b in ocBands)
+            {
+                if (b.ID == id)
+                {
+                    return b;
+                }
+            }
+
+            return null;
         }
 
         

@@ -43,5 +43,19 @@ namespace Festival.Model
             }
             return ocCpt;
         }
+
+        public static ContactpersoonType GetCpTypeById(int id)
+        {
+            ObservableCollection<ContactpersoonType> ocCpType = GetContactpersoonType();
+            foreach (ContactpersoonType cpType in ocCpType)
+            {
+                if (cpType.ID == id)
+                {
+                    return cpType;
+                }
+            }
+
+            return null;
+        }
     }
 }
