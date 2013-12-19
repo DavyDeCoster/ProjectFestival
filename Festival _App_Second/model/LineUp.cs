@@ -93,6 +93,22 @@ namespace Festival.Model
 
             return null;
         }
+
+        public static ObservableCollection<DateTime> GetUniqueDays()
+        {
+            ObservableCollection<DateTime> ocDate = new ObservableCollection<DateTime>();
+            ObservableCollection<LineUp> ocLineUp = GetLineUp();
+
+            foreach (LineUp l in ocLineUp)
+            {
+                if (!ocDate.Contains(l.Date))
+                {
+                    ocDate.Add(l.Date);
+                }
+            }
+
+            return ocDate;
+        }
         
     }
 }

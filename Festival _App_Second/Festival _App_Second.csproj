@@ -98,9 +98,6 @@
     <Compile Include="view\Contact.xaml.cs">
       <DependentUpon>Contact.xaml</DependentUpon>
     </Compile>
-    <Compile Include="view\Ticket_Bestellen.xaml.cs">
-      <DependentUpon>Ticket_Bestellen.xaml</DependentUpon>
-    </Compile>
     <Page Include="view\Artist_toevoegen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -150,10 +147,6 @@
     <Page Include="view\Contact.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="view\Ticket_Bestellen.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

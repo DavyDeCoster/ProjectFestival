@@ -4,8 +4,55 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             Height="700" Width="933">
+             Height="700" Width="900">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Days}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"></StackPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Margin="8" Width="150" Content="{Binding DayOfWeek}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <ListView HorizontalAlignment="Left" Height="534" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="205">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <TextBlock HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center"><Run Language="nl-be" Text="Line Up"/></TextBlock>
+        <ScrollViewer Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Height="534" Margin="10,10,0,0" VerticalAlignment="Top" Width="655" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Stages}" Height="523" Width="655">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"></StackPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding Name}"></TextBlock>
+                            <ListBox ItemsSource="{Binding LineUps.Name}"></ListBox>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </UserControl>
