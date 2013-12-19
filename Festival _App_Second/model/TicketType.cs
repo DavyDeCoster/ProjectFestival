@@ -54,7 +54,7 @@ namespace Festival.Model
                 {
                     ID = (int)reader[0],
                     Name = (string)reader[1],
-                    Price = (double)reader[2],
+                    //Price = (double)reader[2],
                     AvailableTickets = (int)reader[3]
                 };
                 ocTicketType.Add(tt);

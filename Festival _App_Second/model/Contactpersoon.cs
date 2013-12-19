@@ -160,6 +160,6 @@ namespace Festival.Model
             return null;
         }
 
-        public static Contactpersoon UpdateContact(
+        //public static Contactpersoon UpdateContact(
     }
 }
