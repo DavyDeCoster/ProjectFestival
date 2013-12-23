@@ -17,5 +17,12 @@ namespace FestivalMvc.Controllers
 
             return View(ocLineUp);
         }
+
+        public ActionResult Details(int id = 0)
+        {
+            Band b = Band.GetBandById(id);
+
+            return View(b);
+        }
     }
 }
