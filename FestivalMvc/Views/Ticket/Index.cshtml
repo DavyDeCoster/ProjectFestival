@@ -1,0 +1,51 @@
+﻿@model FestivalMvc.ViewModel.TicketVM
+
+@{
+    ViewBag.Title = "Tickets";
+}
+
+<h2>Tickets</h2>
+
+@using (Html.BeginForm("Book", "Ticket", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Ticket</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NewTicket.Ticketholder)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NewTicket.Ticketholder)
+            @Html.ValidationMessageFor(model => model.NewTicket.Ticketholder)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NewTicket.TicketholderEmail)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NewTicket.TicketholderEmail)
+            @Html.ValidationMessageFor(model => model.NewTicket.TicketholderEmail)
+        </div>
+        <div>
+            Soort ticket:
+            @Html.DropDownList("ListTicketType", (SelectList)Model.ListTicketType,"---- Selecteer uw ticket ----", new { @class = "editor-field"})
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NewTicket.Amount)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NewTicket.Amount)
+            @Html.ValidationMessageFor(model => model.NewTicket.Amount)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

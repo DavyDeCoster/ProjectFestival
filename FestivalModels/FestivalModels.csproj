@@ -7,7 +7,7 @@
     <ProjectGuid>{F36BC049-DB5B-40E5-AE90-7457C0843F38}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FestivalModels</RootNamespace>
+    <RootNamespace>Festival</RootNamespace>
     <AssemblyName>FestivalModels</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -48,6 +48,7 @@
     <Compile Include="model\Festival.cs" />
     <Compile Include="model\Genre.cs" />
     <Compile Include="model\LineUp.cs" />
+    <Compile Include="model\Message.cs" />
     <Compile Include="model\Stage.cs" />
     <Compile Include="model\Ticket.cs" />
     <Compile Include="model\TicketType.cs" />

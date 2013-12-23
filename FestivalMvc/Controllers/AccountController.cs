@@ -10,6 +10,7 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using FestivalMvc.Filters;
 using FestivalMvc.Models;
+using FestivalMvc.Models.DAL;
 
 namespace FestivalMvc.Controllers
 {
