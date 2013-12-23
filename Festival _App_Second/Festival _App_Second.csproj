@@ -62,17 +62,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="model\Access.cs" />
-    <Compile Include="model\Band.cs" />
-    <Compile Include="model\Contactpersoon.cs" />
-    <Compile Include="model\ContactpersoonType.cs" />
-    <Compile Include="model\DAL\DbAccess.cs" />
-    <Compile Include="model\Festival.cs" />
-    <Compile Include="model\Genre.cs" />
-    <Compile Include="model\LineUp.cs" />
-    <Compile Include="model\Stage.cs" />
-    <Compile Include="model\Ticket.cs" />
-    <Compile Include="model\TicketType.cs" />
     <Compile Include="viewmodel\LineUpVM.cs" />
     <Compile Include="view\Artist_toevoegen.xaml.cs">
       <DependentUpon>Artist_toevoegen.xaml</DependentUpon>
@@ -176,7 +165,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\FestivalModels\FestivalModels.csproj">
+      <Project>{f36bc049-db5b-40e5-ae90-7457c0843f38}</Project>
+      <Name>FestivalModels</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>

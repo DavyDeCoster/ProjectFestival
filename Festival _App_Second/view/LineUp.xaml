@@ -24,7 +24,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Margin="8" Width="150" Content="{Binding DayOfWeek}"/>
+                        <Button Margin="8" Width="150" Content="{Binding StringFormat='{}{0:dd/MM/yyyy}'}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -38,7 +38,7 @@
         </ListView>
         <TextBlock HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center"><Run Language="nl-be" Text="Line Up"/></TextBlock>
         <ScrollViewer Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Height="534" Margin="10,10,0,0" VerticalAlignment="Top" Width="655" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
-            <ItemsControl ItemsSource="{Binding Stages}" Height="523" Width="655">
+            <ItemsControl ItemsSource="{Binding LineUps}" Height="523" Width="655">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal"></StackPanel>
@@ -47,8 +47,8 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding Name}"></TextBlock>
-                            <ListBox ItemsSource="{Binding LineUps.Name}"></ListBox>
+                            <TextBlock Text="{Binding Stage.Name}"></TextBlock>
+                            <ListBox ItemsSource="{Binding Band.Name}"></ListBox>
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

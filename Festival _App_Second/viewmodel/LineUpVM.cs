@@ -15,38 +15,21 @@ namespace Festival__App_Second.viewmodel
             get { return "LineUp"; }
         }
 
-        private ObservableCollection<LineUp> _lineUp;
+        private ObservableCollection<LineUp> _lineUps;
 
         public ObservableCollection<LineUp> LineUps
         {
             get
             {
-                if (_lineUp == null)
+                if (_lineUps == null)
                 {
-                    _lineUp = LineUp.GetLineUp();
+                    _lineUps = LineUp.GetLineUp();
                 }
 
-                return _lineUp;
+                return _lineUps;
 
             }
-            set { _lineUp = value; }
-        }
-
-        private ObservableCollection<Stage> _stages;
-
-        public ObservableCollection<Stage> Stages
-        {
-            get
-            {
-                if (_stages == null)
-                {
-                    _stages = Stage.GetStages();
-                }
-
-                return _stages;
-
-            }
-            set { _stages = value; }
+            set { _lineUps = value; }
         }
 
         private ObservableCollection<DateTime> _days;

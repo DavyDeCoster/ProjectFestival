@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Festival.Model.LineUp>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+@foreach (var item in Model) {
+    <div style="background-image:url(@Html.DisplayFor(modelItem => item.Band.Picture)); Width:250px; Height: 150px; float: left; text-background: 'purple'" >
+        @Html.DisplayFor(modelItem => item.Band.Name)
+        @Html.DisplayFor(modelItem => item.Date.DayOfWeek)
+    </div>
+}
+
+</table>
