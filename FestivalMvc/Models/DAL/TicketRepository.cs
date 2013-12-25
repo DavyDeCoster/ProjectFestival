@@ -16,12 +16,17 @@ namespace FestivalMvc.Models.DAL
 
         public static void BookTicket(Ticket t)
         {
-            Console.WriteLine("lol");
+            Ticket.AddTicket(t);
         }
 
         public static Ticket GetTicketById(int id)
         {
             return Ticket.GetTicketById(id);
+        }
+
+        public static ObservableCollection<Ticket> GetTickets()
+        {
+            return Ticket.GetTickets();
         }
     }
 }

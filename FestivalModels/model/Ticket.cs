@@ -62,7 +62,7 @@ namespace Festival.Model
                 {
                     ID = (int)reader[5],
                     Name = (string)reader[6],
-                    Price = (double)reader[7],
+                    //Price = (double)reader[7],
                     AvailableTickets = (int)reader[8]
                 };
 
@@ -91,6 +91,18 @@ namespace Festival.Model
             }
 
             return null;
+        }
+
+        public static void AddTicket(Ticket T)
+        {
+            string sSql = "Insert Into Ticket(TicketHolder, TickerHolderEmail, TicketType, Amount) VALUES (@name, @email, @typeid, @amount);";
+
+            DbParameter p1 = DbAccess.AddParameter("@name", T.Ticketholder);
+            DbParameter p2 = DbAccess.AddParameter("@email", T.TicketholderEmail);
+            DbParameter p3 = DbAccess.AddParameter("@amount", T.Amount);
+            DbParameter p4 = DbAccess.AddParameter("@typeid", T.TicketType.ID);
+
+            DbAccess.ModifyData(sSql, p1, p2, p3, p4);
         }
     }
 }

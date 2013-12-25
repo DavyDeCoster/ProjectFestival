@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Festival.Model.Ticket>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div>
+    <p>Beschikbaar:</p>
+    @foreach (var item in Model)
+    {
+    <p>@Html.DisplayFor(modelItem => item.TicketType.AvailableTickets)</p>
+    }
+</div>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Ticketholder)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TicketholderEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TicketType.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ticketholder)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TicketholderEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TicketType.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

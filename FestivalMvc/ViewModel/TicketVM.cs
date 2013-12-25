@@ -9,7 +9,7 @@ namespace FestivalMvc.ViewModel
 {
     public class TicketVM
     {
-        public Ticket NewTicket { get; set; }
+        public Ticket Ticket { get; set; }
         public int SelectedTicketType { get; set; }
         public SelectList ListTicketType { get; set; }
     }

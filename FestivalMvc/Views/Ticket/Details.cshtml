@@ -1,0 +1,42 @@
+﻿@model Festival.Model.Ticket
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Ticket</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Ticketholder)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Ticketholder)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TicketholderEmail)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TicketholderEmail)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TicketType.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model =>model.TicketType.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Amount)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Amount)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
