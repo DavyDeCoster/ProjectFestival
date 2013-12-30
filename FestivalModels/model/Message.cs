@@ -43,6 +43,15 @@ namespace Festival.model
             }
             return ocMessage;
         }
+
+        public static void AddMessage(Message m)
+        {
+            string sSql = "insert into Message (Message) values (@message)";
+
+            DbParameter p1 = DbAccess.AddParameter("@message", m.MessageText);
+
+            DbAccess.ModifyData(sSql, p1);
+        }
         
     }
 }

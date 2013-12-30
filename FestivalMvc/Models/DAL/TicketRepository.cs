@@ -28,5 +28,10 @@ namespace FestivalMvc.Models.DAL
         {
             return Ticket.GetTickets();
         }
+
+        public static int GetLastId()
+        {
+            return Ticket.GetLastId();
+        }
     }
 }

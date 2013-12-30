@@ -125,6 +125,17 @@ namespace Festival.Model
             return ocLineUpStage;
         }
 
-        
+        public static void AddLineUp(LineUp l)
+        {
+            string sSql = "insert into LineUp (Date, From, Until, Stage, Band) values(@date, @from, @until, @stage, @band)";
+
+            DbParameter p1 = DbAccess.AddParameter("@date", l.Date);
+            DbParameter p2 = DbAccess.AddParameter("@from", l.From);
+            DbParameter p3 = DbAccess.AddParameter("@until", l.Until);
+            DbParameter p4 = DbAccess.AddParameter("@stage", l.Stage.ID);
+            DbParameter p5 = DbAccess.AddParameter("@band", l.Band.ID);
+
+            DbAccess.ModifyData(sSql, p1, p2, p3, p4, p5);
+        }
     }
 }

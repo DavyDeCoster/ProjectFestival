@@ -93,9 +93,22 @@ namespace Festival.Model
             return null;
         }
 
+        public static int GetLastId()
+        {
+            string sSql = "SELECT TOP 1 [Id]  FROM [Festival].[dbo].[Ticket] order by Id DESC";
+
+            DbDataReader reader = DbAccess.GetData(sSql);
+            while (reader.Read())
+            {
+                return (int)reader[0];
+            }
+
+            return 0;
+        }
+
         public static void AddTicket(Ticket T)
         {
-            string sSql = "Insert Into Ticket(TicketHolder, TickerHolderEmail, TicketType, Amount) VALUES (@name, @email, @typeid, @amount);";
+            string sSql = "Insert Into Ticket(Ticketholder, TicketholderEmail, TicketType, Amount) VALUES (@name, @email, @typeid, @amount);";
 
             DbParameter p1 = DbAccess.AddParameter("@name", T.Ticketholder);
             DbParameter p2 = DbAccess.AddParameter("@email", T.TicketholderEmail);

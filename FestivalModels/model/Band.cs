@@ -107,6 +107,33 @@ namespace Festival.Model
             return null;
         }
 
-        
+        public static void AddBand(Band b)
+        {
+            string sSql = "Insert Into Band(Name, Picture, Description, Twitter, Facebook, Genre) VALUES (@name, @picture, @description, @twitter, @facebook, @genre);";
+
+            DbParameter p1 = DbAccess.AddParameter("@name", b.Name);
+            DbParameter p2 = DbAccess.AddParameter("@picture", b.Picture);
+            DbParameter p3 = DbAccess.AddParameter("@description", b.Description);
+            DbParameter p4 = DbAccess.AddParameter("@twitter", b.Twitter);
+            DbParameter p5 = DbAccess.AddParameter("@facebook", b.Facebook);
+            DbParameter p6 = DbAccess.AddParameter("@genre", Genre.GetIdByGenres(b.Genres));
+
+            DbAccess.ModifyData(sSql, p1, p2, p3, p4, p5, p6);
+        }
+
+        public static void UpdateBand(Band b)
+        {
+            string sSql = "UPDATE Band SET Name=@name, Picture=@picture, Description=@description, Twitter=@twitter, Facebook=@facebook, Genre=@genre WHERE Id=@id";
+
+            DbParameter p1 = DbAccess.AddParameter("@name", b.Name);
+            DbParameter p2 = DbAccess.AddParameter("@picture", b.Picture);
+            DbParameter p3 = DbAccess.AddParameter("@description", b.Description);
+            DbParameter p4 = DbAccess.AddParameter("@twitter", b.Twitter);
+            DbParameter p5 = DbAccess.AddParameter("@facebook", b.Facebook);
+            DbParameter p6 = DbAccess.AddParameter("@genre", Genre.GetIdByGenres(b.Genres));
+            DbParameter p7 = DbAccess.AddParameter("@id", b.ID);
+
+            DbAccess.ModifyData(sSql, p1, p2, p3, p4, p5, p6, p7);
+        }
     }
 }

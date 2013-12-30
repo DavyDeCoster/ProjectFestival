@@ -35,23 +35,31 @@ namespace Festival.Model
             set { _rss = value; }
         }
 
-        public static ObservableCollection<Festival> GetFestival()
+        public static Festival GetFestival()
         {
-            ObservableCollection<Festival> ocFestival = new ObservableCollection<Festival>();
-            string sSql = "Select * from Festival";
+            string sSql = "Select TOP 1 * from Festival order by Id Desc";
             DbDataReader reader = DbAccess.GetData(sSql);
-            while (reader.Read())
+            reader.Read();
+
+            Festival fest = new Festival()
             {
-                Festival fest = new Festival()
-                {
-                    StartDate = (DateTime)reader[0],
-                    EndDate = (DateTime)reader[1],
-                    RSS = (string)reader[2]
-                };
-                ocFestival.Add(fest);
-            }
-            return ocFestival;
+                StartDate = (DateTime)reader[0],
+                EndDate = (DateTime)reader[1],
+                RSS = (string)reader[2]
+            };
+
+            return fest;
         }
 
+        public static void AddFestival(Festival f)
+        {
+            string sSql = "insert into Festival (StartDate, EndDate, Rss) values(@startdate, @enddate, @rss)";
+
+            DbParameter p1 = DbAccess.AddParameter("@startdate", f.StartDate);
+            DbParameter p2 = DbAccess.AddParameter("@enddate", f.EndDate);
+            DbParameter p3 = DbAccess.AddParameter("@rss", f.RSS);
+
+            DbAccess.ModifyData(sSql, p1, p2, p3);
+        }
     }
 }

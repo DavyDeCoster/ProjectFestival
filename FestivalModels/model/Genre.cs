@@ -58,5 +58,44 @@ namespace Festival.Model
 
             return null;
         }
+
+        public static int GetIdByGenres(ObservableCollection<Genre> ocGenre)
+        {
+
+            if (ocGenre.Count != 2)
+            {
+                return 0;
+            }
+
+            string sSql = "Select * from BandGenre Where Genre1 = @genre1 and Genre2 = @genre2";
+
+            DbParameter p1 = DbAccess.AddParameter("@genre1", ocGenre[0].ID);
+            DbParameter p2 = DbAccess.AddParameter("@genre2", ocGenre[1].ID);
+
+            DbDataReader Reader = DbAccess.GetData(sSql, p1, p2);
+            Reader.Read();
+
+            if (Reader[0] == null)
+            {
+                AddBandGenre(ocGenre);
+                Reader = DbAccess.GetData(sSql, p1, p2);
+                Reader.Read();
+            }
+
+            return (int)Reader[0];
+        }
+
+        public static void AddBandGenre(ObservableCollection<Genre> ocGenre)
+        {
+            if (ocGenre.Count == 2)
+            {
+                string sSql = "insert into BandGenre (genre1, genre2) values(@genre1, @genre2)";
+
+                DbParameter p1 = DbAccess.AddParameter("@genre1", ocGenre[0].ID);
+                DbParameter p2 = DbAccess.AddParameter("@genre2", ocGenre[1].ID);
+
+                DbAccess.ModifyData(sSql, p1, p2);
+            }
+        }
     }
 }

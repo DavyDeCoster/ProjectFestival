@@ -57,5 +57,22 @@ namespace Festival.Model
 
             return null;
         }
+
+        public static void AddContactType(ContactpersoonType ct)
+        {
+            string sSql = "Insert into ContactpersoonType (Name) values(@name)";
+
+            DbParameter p1 = DbAccess.AddParameter("@name", ct.Name);
+            DbAccess.ModifyData(sSql, p1);
+        }
+
+        public static void UpdateContactType(ContactpersoonType ct)
+        {
+            string sSql = "Update ContactpersoonType Name=@name where Id=@id";
+
+            DbParameter p1 = DbAccess.AddParameter("@name", ct.Name);
+            DbParameter p2 = DbAccess.AddParameter("@id", ct.ID);
+            DbAccess.ModifyData(sSql, p1, p2);
+        }
     }
 }

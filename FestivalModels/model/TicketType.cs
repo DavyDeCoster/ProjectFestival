@@ -75,5 +75,16 @@ namespace Festival.Model
 
             return null;
         }
+
+        public static void AddTicketType(TicketType tt)
+        {
+            string sSql = "Insert into TicketType (Name, Price, AvailableTickets) values(@name, @price, @itickets)";
+
+            DbParameter p1 = DbAccess.AddParameter("@name", tt.Name);
+            DbParameter p2 = DbAccess.AddParameter("@price", tt.Price);
+            DbParameter p3 = DbAccess.AddParameter("@itickets", tt.AvailableTickets);
+
+            DbAccess.ModifyData(sSql, p1, p2, p3);
+        }
     }
 }

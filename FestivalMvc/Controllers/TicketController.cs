@@ -22,19 +22,19 @@ namespace FestivalMvc.Controllers
             return View("Index", VM);
         }
 
-        [HttpPost]
-        public ActionResult Index(TicketVM VM)
+        public ActionResult Book(TicketVM VM)
         {
             Ticket Ticket = VM.Ticket;
             Ticket.TicketType = TicketType.GetTicketTypeById(VM.SelectedTicketType);
             TicketRepository.BookTicket(VM.Ticket);
+            Ticket.ID = TicketRepository.GetLastId();
 
             return RedirectToAction("Details", "Ticket", new { ticketId = Ticket.ID });
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Details(int ticketId)
         {
-            Ticket ticket = TicketRepository.GetTicketById(id);
+            Ticket ticket = TicketRepository.GetTicketById(ticketId);
             return View(ticket);
         }
 

@@ -56,5 +56,24 @@ namespace Festival.Model
 
             return null;
         }
+
+        public static void AddAccess(Access A)
+        {
+            string sSql = "Insert Into Access(Name) VALUES (@name);";
+
+            DbParameter p1 = DbAccess.AddParameter("@name", A.Name);
+
+            DbAccess.ModifyData(sSql, p1);
+        }
+
+        public static void UpdateAccess(Access a)
+        {
+            string sSql = "UPDATE Access SET Name=@name WHERE Id=@id";
+
+            DbParameter p1 = DbAccess.AddParameter("@name", a.Name);
+            DbParameter p2 = DbAccess.AddParameter("@id", a.Id);
+
+            DbAccess.ModifyData(sSql, p1, p2);
+        }
     }
 }
