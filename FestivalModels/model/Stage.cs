@@ -42,6 +42,7 @@ namespace Festival.Model
                 };
                 ocStages.Add(Stage);
             }
+            reader.Close();
             return ocStages;
         }
 

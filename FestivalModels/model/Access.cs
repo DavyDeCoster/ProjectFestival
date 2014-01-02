@@ -40,6 +40,7 @@ namespace Festival.Model
                 };
                 ocAccess.Add(a);
             }
+            reader.Close();
             return ocAccess;
         }
 
@@ -53,7 +54,6 @@ namespace Festival.Model
                     return a;
                 }
             }
-
             return null;
         }
 

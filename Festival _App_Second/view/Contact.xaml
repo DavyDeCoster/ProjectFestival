@@ -26,8 +26,8 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
                 <DataGridTextColumn Header="Company"  Binding="{Binding Company}"/>
-                <DataGridTextColumn Header="Job"  Binding="{Binding JobRole.Name}"/>
-                <DataGridTextColumn Header="Access"  Binding="{Binding Accesszone.Name}"/>
+                <DataGridComboBoxColumn Header="Job" ItemsSource="{Binding ConType}" SelectedValueBinding="{Binding Name}" DisplayMemberPath="{Binding Name}"/>
+                <!--<DataGridComboBoxColumn Header="Access"  Binding="{Binding Accesszone.Name}"/>-->
                 <DataGridTextColumn Header="City"  Binding="{Binding City}"/>
                 <DataGridTextColumn Header="Email"  Binding="{Binding Email}"/>
                 <DataGridTextColumn Header="Phone"  Binding="{Binding Phone}"/>

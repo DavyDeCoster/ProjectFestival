@@ -62,7 +62,7 @@ namespace Festival.Model
                 {
                     ID = (int)reader[5],
                     Name = (string)reader[6],
-                    //Price = (double)reader[7],
+                    Price = (decimal)reader[7],
                     AvailableTickets = (int)reader[8]
                 };
 
@@ -76,6 +76,7 @@ namespace Festival.Model
                 };
                 ocTicket.Add(tick);
             }
+            reader.Close();
             return ocTicket;
         }
 
@@ -116,6 +117,9 @@ namespace Festival.Model
             DbParameter p4 = DbAccess.AddParameter("@typeid", T.TicketType.ID);
 
             DbAccess.ModifyData(sSql, p1, p2, p3, p4);
+
+            int iChange = T.TicketType.AvailableTickets - T.Amount;
+            TicketType.ChangeAvailable(T.TicketType.ID, iChange);
         }
     }
 }

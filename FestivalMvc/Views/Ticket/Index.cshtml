@@ -14,7 +14,7 @@
         <legend>Ticket</legend>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Ticket.Ticketholder)
+            Naam:
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Ticket.Ticketholder)
@@ -22,18 +22,20 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Ticket.TicketholderEmail)
+            Email:
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Ticket.TicketholderEmail)
             @Html.ValidationMessageFor(model => model.Ticket.TicketholderEmail)
         </div>
-        <div>
+        <div class="editor-label">
             Soort ticket:
+        </div>
+        <div class="editor-field">
             @Html.DropDownList("SelectedTicketType", (SelectList)Model.ListTicketType,"---- Selecteer uw ticket ----", new { @class = "editor-field"})
         </div>
         <div class="editor-label">
-            @Html.LabelFor(model => model.Ticket.Amount)
+            Aantal
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Ticket.Amount)
@@ -41,7 +43,7 @@
         </div>
 
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="Bestel" />
         </p>
     </fieldset>
 }

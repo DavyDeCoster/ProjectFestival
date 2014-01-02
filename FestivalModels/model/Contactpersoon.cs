@@ -105,6 +105,7 @@ namespace Festival.Model
 
                 ocContact.Add(person);
             }
+            reader.Close();
             return ocContact;
         }
 

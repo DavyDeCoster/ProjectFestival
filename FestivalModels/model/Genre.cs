@@ -41,6 +41,7 @@ namespace Festival.Model
                 };
                 ocGenre.Add(g);
             }
+            reader.Close();
             return ocGenre;
         }
 

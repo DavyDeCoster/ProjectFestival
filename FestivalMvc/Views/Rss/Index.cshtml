@@ -1,0 +1,36 @@
+﻿@model FestivalMvc.ViewModel.RssVM
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm("Add", "Rss", FormMethod.Post)) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Message</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NewMessage.MessageText)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NewMessage.MessageText)
+            @Html.ValidationMessageFor(model => model.NewMessage.MessageText)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

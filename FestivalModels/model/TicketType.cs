@@ -27,9 +27,9 @@ namespace Festival.Model
             set { _name = value; }
         }
 
-        private Double _price;
+        private Decimal _price;
 
-        public Double Price
+        public Decimal Price
         {
             get { return _price; }
             set { _price = value; }
@@ -54,11 +54,12 @@ namespace Festival.Model
                 {
                     ID = (int)reader[0],
                     Name = (string)reader[1],
-                    //Price = (double)reader[2],
+                    Price = (decimal)reader[2],
                     AvailableTickets = (int)reader[3]
                 };
                 ocTicketType.Add(tt);
             }
+            reader.Close();
             return ocTicketType;
         }
 
@@ -85,6 +86,16 @@ namespace Festival.Model
             DbParameter p3 = DbAccess.AddParameter("@itickets", tt.AvailableTickets);
 
             DbAccess.ModifyData(sSql, p1, p2, p3);
+        }
+
+        public static void ChangeAvailable(int Id, int Amount)
+        {
+            string sSql = "UPDATE TicketType SET AvailableTickets = @amount WHERE Id = @id";
+
+            DbParameter p1 = DbAccess.AddParameter("@amount", Amount);
+            DbParameter p2 = DbAccess.AddParameter("@id", Id);
+
+            DbAccess.ModifyData(sSql, p1, p2);
         }
     }
 }

@@ -77,6 +77,7 @@ namespace Festival.Model
                 };
                 ocLineUp.Add(Line);
             }
+            reader.Close();
             return ocLineUp;
         }
 

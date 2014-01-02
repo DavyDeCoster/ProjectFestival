@@ -1,35 +1,28 @@
 ﻿@model IEnumerable<Festival.Model.Ticket>
 
 @{
-    ViewBag.Title = "List";
+    ViewBag.Title = "Lijst tickets";
 }
 
-<h2>List</h2>
+<h2>Lijst tickets</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Index")
+    @Html.ActionLink("Boek een ticket", "Index")
 </p>
 
-<div>
-    <p>Beschikbaar:</p>
-    @foreach (var item in Model)
-    {
-    <p>@Html.DisplayFor(modelItem => item.TicketType.AvailableTickets)</p>
-    }
-</div>
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Ticketholder)
+            Naam
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TicketholderEmail)
+            Emailadres
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Amount)
+            Aantal
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TicketType.Name)
+            Type
         </th>
         <th></th>
     </tr>

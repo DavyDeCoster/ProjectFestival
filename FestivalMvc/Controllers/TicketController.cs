@@ -22,6 +22,7 @@ namespace FestivalMvc.Controllers
             return View("Index", VM);
         }
 
+        [HttpPost]
         public ActionResult Book(TicketVM VM)
         {
             Ticket Ticket = VM.Ticket;
@@ -43,6 +44,13 @@ namespace FestivalMvc.Controllers
             ObservableCollection<Ticket> ocTickets = TicketRepository.GetTickets();
 
             return View(ocTickets);
+        }
+
+        public ActionResult AvailableTickets()
+        {
+            ObservableCollection<TicketType> ocTicketType = TicketType.GetTicketType();
+
+            return View(ocTicketType);
         }
     }
 }

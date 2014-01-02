@@ -89,6 +89,7 @@ namespace Festival.Model
                 };
                 ocFestival.Add(b);
             }
+            reader.Close();
             return ocFestival;
         }
 

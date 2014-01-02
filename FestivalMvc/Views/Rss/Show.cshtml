@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Festival.model.Message>
+
+@{
+    ViewBag.Title = "Show";
+}
+
+<?xml version="1.0"?>
+<rss version="2.0">
+  <channel>
+    <title>RSS-feed Project</title> 
+    <link>@Html.</link> 
+    <description>Deze webfeed notificeert u van nieuwe artikelen op Wikipedia NL.</description>
+      @{foreach (var item in Model)
+        {
+            <item>                                                                                                                                                 
+              <title>@Html.DisplayFor(ModelItem => item.Id)</title> 
+              <link>//nl.wikipedia.org/wiki/Really_Simple_Syndication</link> 
+              <description>@Html.DisplayFor(ModelItem => item.MessageText)</description> 
+            </item>
+        }
+        }
+  </channel>
+</rss>

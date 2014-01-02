@@ -47,7 +47,7 @@ namespace Festival.Model
                 EndDate = (DateTime)reader[1],
                 RSS = (string)reader[2]
             };
-
+            reader.Close();
             return fest;
         }
 

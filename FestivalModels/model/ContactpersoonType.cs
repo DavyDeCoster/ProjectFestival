@@ -42,6 +42,7 @@ namespace Festival.Model
                 ocCpt.Add(tt);
             }
             return ocCpt;
+            reader.Close();
         }
 
         public static ContactpersoonType GetCpTypeById(int id)

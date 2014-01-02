@@ -27,6 +27,24 @@ namespace Festival.model
             set { _messageText = value; }
         }
 
+        private string _title;
+
+        public string Title
+        {
+            get { return _title; }
+            set { _title = value; }
+        }
+
+        private string _author;
+
+        public string Author
+        {
+            get { return _author; }
+            set { _author = value; }
+        }
+        
+        
+
         public static ObservableCollection<Message> GetMessages()
         {
             ObservableCollection<Message> ocMessage = new ObservableCollection<Message>();
@@ -37,20 +55,25 @@ namespace Festival.model
                 Message a = new Message()
                 {
                     Id = (int)reader[0],
-                    MessageText = (string)reader[1]
+                    Title = (string)reader[1],
+                    MessageText = (string)reader[2],
+                    Author = (string)reader[3]
                 };
                 ocMessage.Add(a);
             }
+            reader.Close();
             return ocMessage;
         }
 
         public static void AddMessage(Message m)
         {
-            string sSql = "insert into Message (Message) values (@message)";
+            string sSql = "insert into Message (Message, Title, Author) values (@message, @title, @author)";
 
             DbParameter p1 = DbAccess.AddParameter("@message", m.MessageText);
+            DbParameter p2 = DbAccess.AddParameter("@title", m.Title);
+            DbParameter p3 = DbAccess.AddParameter("@author", m.Author);
 
-            DbAccess.ModifyData(sSql, p1);
+            DbAccess.ModifyData(sSql, p1,p2,p3);
         }
         
     }
