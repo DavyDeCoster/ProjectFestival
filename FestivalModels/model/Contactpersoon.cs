@@ -163,19 +163,26 @@ namespace Festival.Model
 
         public static void AddContact(Contactpersoon cp)
         {
-            string sSql = "insert into Contactpersoon (Name, Company, Jobrole, Accesszone, City, Email, Phone, Cellphone, IsGeprint) values(@name, @company, @jobrole, @access, @city, @email, @phone, @cellphone, @isgeprint)";
+            if (cp.ID != 0)
+            {
+                UpdateContact(cp);
+            }
+            else
+            {
+                string sSql = "insert into Contactpersoon (Name, Company, Jobrole, Accesszone, City, Email, Phone, Cellphone, IsGeprint) values(@name, @company, @jobrole, @access, @city, @email, @phone, @cellphone, @isgeprint)";
 
-            DbParameter p1 = DbAccess.AddParameter("@name", cp.Name);
-            DbParameter p2 = DbAccess.AddParameter("@company", cp.Company);
-            DbParameter p3 = DbAccess.AddParameter("@jobrole", cp.JobRole.ID);
-            DbParameter p4 = DbAccess.AddParameter("@access", cp.Accesszone.Id);
-            DbParameter p5 = DbAccess.AddParameter("@city", cp.City);
-            DbParameter p6 = DbAccess.AddParameter("@email", cp.Email);
-            DbParameter p7 = DbAccess.AddParameter("@phone", cp.Phone);
-            DbParameter p8 = DbAccess.AddParameter("@cellphone", cp.Cellphone);
-            DbParameter p9 = DbAccess.AddParameter("@isgeprint", cp.Print);
+                DbParameter p1 = DbAccess.AddParameter("@name", cp.Name);
+                DbParameter p2 = DbAccess.AddParameter("@company", cp.Company);
+                DbParameter p3 = DbAccess.AddParameter("@jobrole", cp.JobRole.ID);
+                DbParameter p4 = DbAccess.AddParameter("@access", cp.Accesszone.Id);
+                DbParameter p5 = DbAccess.AddParameter("@city", cp.City);
+                DbParameter p6 = DbAccess.AddParameter("@email", cp.Email);
+                DbParameter p7 = DbAccess.AddParameter("@phone", cp.Phone);
+                DbParameter p8 = DbAccess.AddParameter("@cellphone", cp.Cellphone);
+                DbParameter p9 = DbAccess.AddParameter("@isgeprint", cp.Print);
 
-            DbAccess.ModifyData(sSql, p1, p2, p3, p4, p5, p6, p7, p8, p9);
+                DbAccess.ModifyData(sSql, p1, p2, p3, p4, p5, p6, p7, p8, p9);
+            }
         }
 
         public static void UpdateContact(Contactpersoon cp)
@@ -194,6 +201,15 @@ namespace Festival.Model
             DbParameter p10 = DbAccess.AddParameter("@id", cp.ID);
 
             DbAccess.ModifyData(sSql, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
+        }
+
+        public static void DeleteContact(Contactpersoon cp)
+        {
+            string sSql = "DELETE FROM Contactpersoon WHERE Id =@id";
+
+            DbParameter p1 = DbAccess.AddParameter("@id", cp.ID);
+
+            DbAccess.ModifyData(sSql, p1);
         }
     }
 }

@@ -46,7 +46,9 @@ namespace Festival__App_Second.viewmodel
                 }
                 return _ticketTypes;
             }
-            set { _ticketTypes = value; }
+            set { _ticketTypes = value;
+            OnPropertyChanged("TicketTypes");
+            }
         }
 
         private TicketType _selectedTicketType;
@@ -54,7 +56,38 @@ namespace Festival__App_Second.viewmodel
         public TicketType SelectedTicketType
         {
             get { return _selectedTicketType; }
-            set { _selectedTicketType = value; OnPropertyChanged("SelectedTicketType"); }
+            set { _selectedTicketType = value;
+            if (_selectedTicketType != null)
+            {
+                NewTicket.TicketType = SelectedTicketType;
+            }
+                OnPropertyChanged("SelectedTicketType"); }
+        }
+
+        private Ticket _newTicket;
+
+        public Ticket NewTicket
+        {
+            get {
+                if (_newTicket == null)
+                {
+                    _newTicket = new Ticket();
+                }
+                
+                return _newTicket; }
+
+            set { _newTicket = value;  OnPropertyChanged("NewTicket");}
+        }
+
+        public ICommand OrderCommand
+        {
+            get { return new RelayCommand(OrderTicket);}
+        }
+
+        private void OrderTicket()
+        {
+            Ticket.AddTicket(NewTicket);
+            TicketTypes = TicketType.GetTicketType();
         }
     }
 }

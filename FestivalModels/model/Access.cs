@@ -57,13 +57,20 @@ namespace Festival.Model
             return null;
         }
 
-        public static void AddAccess(Access A)
+        public static void AddAccess(Access a)
         {
-            string sSql = "Insert Into Access(Name) VALUES (@name);";
+            if (a.Id != 0)
+            {
+                UpdateAccess(a);
+            }
+            else
+            {
+                string sSql = "Insert Into Access(Name) VALUES (@name);";
 
-            DbParameter p1 = DbAccess.AddParameter("@name", A.Name);
+                DbParameter p1 = DbAccess.AddParameter("@name", a.Name);
 
-            DbAccess.ModifyData(sSql, p1);
+                DbAccess.ModifyData(sSql, p1);
+            }
         }
 
         public static void UpdateAccess(Access a)
@@ -74,6 +81,15 @@ namespace Festival.Model
             DbParameter p2 = DbAccess.AddParameter("@id", a.Id);
 
             DbAccess.ModifyData(sSql, p1, p2);
+        }
+
+        public static void DeleteAccess(Access a)
+        {
+            string sSql = "Delete from Access Where Id=@id";
+
+            DbParameter p1 = DbAccess.AddParameter("@id", a.Id);
+
+            DbAccess.ModifyData(sSql, p1);
         }
     }
 }

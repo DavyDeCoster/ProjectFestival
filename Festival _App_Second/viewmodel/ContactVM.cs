@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Festival.Model;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
 
 namespace Festival__App_Second.viewmodel
 {
@@ -45,95 +47,184 @@ namespace Festival__App_Second.viewmodel
                         _conType = ContactpersoonType.GetContactpersoonType();
                     }
                         return _conType; 
-                }   
+                }
 
-            set { _conType = value; }
+            set { _conType = value; OnPropertyChanged("ConType"); }
         }
 
-        #region DatabaseProps
+        private ContactpersoonType _selectedConType;
+
+	    public ContactpersoonType SelectedConType
+	    {
+		    get { return _selectedConType;}
+            set { _selectedConType = value;
+
+            if (_selectedConType != null)
+            {
+                NewConType = SelectedConType;
+            }
+                OnPropertyChanged("SelectedConType"); }
+	    }
+
+        private Access _selectedAccess;
+
+	    public Access SelectedAccess
+	    {
+		    get { return _selectedAccess;}
+            set { _selectedAccess = value;
+            if (_selectedAccess != null)
+            {
+                NewAccess = SelectedAccess;
+            }
+                
+                OnPropertyChanged("SelectedAccess"); }
+	    }
+	
 
         private Contactpersoon _selectedContact;
 
         public Contactpersoon SelectedContact
         {
             get { return _selectedContact; }
-            set { _selectedContact = value; OnPropertyChanged("SelectedContact"); }
+            set
+            {
+                _selectedContact = value;
+                if (_selectedContact != null)
+                {
+                    SelectedConType = SelectedContact.JobRole;
+                    SelectedAccess = SelectedContact.Accesszone;
+                    NewContact = SelectedContact;
+                }
+                OnPropertyChanged("SelectedContact"); }
         }
-        
 
-        //private string _contactname;
+        private Contactpersoon _newContact;
 
-        //public string ContactName
-        //{
-        //    get { return _name; }
-        //    set { _name = value; }
-        //}
+        public Contactpersoon NewContact
+        {
+            get {
+                if (_newContact == null)
+                {
+                    _newContact = new Contactpersoon();
+                }
 
-        //private string _company;
+                return _newContact; }
+            set { _newContact = value; OnPropertyChanged("NewContact"); }
+        }
 
-        //public string Company
-        //{
-        //    get { return _company; }
-        //    set { _company = value; }
-        //}
+        private Access _newAccess;
 
-        //private string _jobrole;
+        public Access NewAccess
+        {
+            get {
+                if (_newAccess == null)
+                {
+                    _newAccess = new Access();
+                }
 
-        //public string JobRole
-        //{
-        //    get { return _jobrole; }
-        //    set { _jobrole = value; }
-        //}
+                return _newAccess; 
+            }
+            set { _newAccess = value; OnPropertyChanged("NewAccess"); }
+        }
 
-        //private string _access;
+        private ContactpersoonType _newConType;
 
-        //public string Access
-        //{
-        //    get { return _access; }
-        //    set { _access = value; }
-        //}
+        public ContactpersoonType NewConType
+        {
+            get {
+                if (_newConType == null)
+                {
+                    _newConType = new ContactpersoonType();
+                }
+                return _newConType; 
+            }
+            set { _newConType = value; OnPropertyChanged("NewConType"); }
+        }
 
-        //private string _city;
+        private ObservableCollection<Access> _accesses;
 
-        //public string City
-        //{
-        //    get { return _city; }
-        //    set { _city = value; }
-        //}
+        public ObservableCollection<Access> Accesses
+        {
+            get {
 
-        //private string _email;
+                if (_accesses == null)
+                {
+                    _accesses = Access.GetAccess();
+                }
+                return _accesses;
+            }
 
-        //public string Email
-        //{
-        //    get { return _email; }
-        //    set { _email = value; }
-        //}
+            set { _accesses = value; OnPropertyChanged("Accesses"); }
+        }
 
-        //private string _phone;
+        #region Commands
 
-        //public string Phone
-        //{
-        //    get { return _phone; }
-        //    set { _phone = value; }
-        //}
+        public ICommand SaveCommand
+        {
+            get { return new RelayCommand(SaveContact); }
+        }
 
-        //private string _cellphone;
+        public void SaveContact()
+        {
+           NewContact.JobRole = SelectedConType;
+           NewContact.Accesszone = SelectedAccess;
 
-        //public string Cellphone
-        //{
-        //    get { return _cellphone; }
-        //    set { _cellphone = value; }
-        //}
+            Contactpersoon.AddContact(NewContact);
+        }
 
-        //private bool _isGeprint;
+        public ICommand DeleteCommand
+        {
+            get { return new RelayCommand(DeleteContact); }
+        }
 
-        //public bool IsGeprint
-        //{
-        //    get { return _isGeprint; }
-        //    set { _isGeprint = value; }
-        //}
-        
+        private void DeleteContact()
+        {
+            Contactpersoon.DeleteContact(SelectedContact);
+        }
+
+        public ICommand JobSaveCommand
+        {
+            get { return new RelayCommand(SaveConType); }
+        }
+
+        public void SaveConType()
+        {
+            ContactpersoonType.AddContactType(NewConType);
+            ConType = ContactpersoonType.GetContactpersoonType();
+        }
+
+        public ICommand JobDeleteCommand
+        {
+            get { return new RelayCommand(DeleteConType); }
+        }
+
+        public void DeleteConType()
+        {
+            ContactpersoonType.DeleteContactType(NewConType);
+            ConType = ContactpersoonType.GetContactpersoonType();
+        }
+
+        public ICommand AccessSaveCommand
+        {
+            get { return new RelayCommand(SaveAccess); }
+        }
+
+        public void SaveAccess()
+        {
+            Access.AddAccess(NewAccess);
+            Accesses = Access.GetAccess();
+        }
+
+        public ICommand AccessDeleteCommand
+        {
+            get { return new RelayCommand(DeleteAccess); }
+        }
+
+        public void DeleteAccess()
+        {
+            Access.DeleteAccess(NewAccess);
+            Accesses = Access.GetAccess();
+        }
         #endregion
-
     }
 }

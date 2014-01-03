@@ -24,5 +24,10 @@ namespace Festival__App_Second.view
         {
             InitializeComponent();
         }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

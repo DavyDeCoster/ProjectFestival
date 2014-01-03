@@ -41,8 +41,9 @@ namespace Festival.Model
                 };
                 ocCpt.Add(tt);
             }
-            return ocCpt;
             reader.Close();
+            return ocCpt;
+            
         }
 
         public static ContactpersoonType GetCpTypeById(int id)
@@ -61,10 +62,17 @@ namespace Festival.Model
 
         public static void AddContactType(ContactpersoonType ct)
         {
+            if(ct.ID != 0)
+            {
+                UpdateContactType(ct);
+            }
+            else
+            {            
             string sSql = "Insert into ContactpersoonType (Name) values(@name)";
 
             DbParameter p1 = DbAccess.AddParameter("@name", ct.Name);
             DbAccess.ModifyData(sSql, p1);
+            }
         }
 
         public static void UpdateContactType(ContactpersoonType ct)
@@ -74,6 +82,14 @@ namespace Festival.Model
             DbParameter p1 = DbAccess.AddParameter("@name", ct.Name);
             DbParameter p2 = DbAccess.AddParameter("@id", ct.ID);
             DbAccess.ModifyData(sSql, p1, p2);
+        }
+
+        public static void DeleteContactType(ContactpersoonType ct)
+        {
+            string sSql = "DELETE FROM ContactpersoonType Where Id=@id";
+
+            DbParameter p1 = DbAccess.AddParameter("@id", ct.ID);
+            DbAccess.ModifyData(sSql, p1);
         }
     }
 }
