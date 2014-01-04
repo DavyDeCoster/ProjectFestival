@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace Festival__App_Second.view
 {
     /// <summary>
-    /// Interaction logic for Festival_Aanpassen.xaml
+    /// Interaction logic for AddGenre.xaml
     /// </summary>
-    public partial class Festival_Aanpassen : Window
+    public partial class AddGenre : Window
     {
-        public Festival_Aanpassen()
+        public AddGenre()
         {
             InitializeComponent();
         }

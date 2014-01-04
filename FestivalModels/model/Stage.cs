@@ -63,7 +63,7 @@ namespace Festival.Model
 
         public static void AddStage(Stage s)
         {
-            string sSql = "insert into Stage (Name), values (@name)";
+            string sSql = "insert into Stage (Name) values (@name)";
 
             DbParameter p1 = DbAccess.AddParameter("@name", s.Name);
 

@@ -76,10 +76,12 @@ namespace Festival.Model
             DbDataReader Reader = DbAccess.GetData(sSql, p1, p2);
             Reader.Read();
 
-            if (Reader[0] == null)
+            if (Reader.HasRows == false)
             {
                 AddBandGenre(ocGenre);
-                Reader = DbAccess.GetData(sSql, p1, p2);
+                DbParameter p3 = DbAccess.AddParameter("@genre1", ocGenre[0].ID);
+                DbParameter p4 = DbAccess.AddParameter("@genre2", ocGenre[1].ID);
+                Reader = DbAccess.GetData(sSql, p3, p4);
                 Reader.Read();
             }
 
@@ -97,6 +99,15 @@ namespace Festival.Model
 
                 DbAccess.ModifyData(sSql, p1, p2);
             }
+        }
+
+        public static void AddGenre(Genre g)
+        {
+            string sSql = "Insert into Genre(Name) values (@name)";
+
+            DbParameter p1 = DbAccess.AddParameter("@name", g.Name);
+
+            DbAccess.ModifyData(sSql, p1);
         }
     }
 }

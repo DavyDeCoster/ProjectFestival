@@ -63,14 +63,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="viewmodel\LineUpVM.cs" />
-    <Compile Include="view\Artist_toevoegen.xaml.cs">
-      <DependentUpon>Artist_toevoegen.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="view\Detail_Contact.xaml.cs">
-      <DependentUpon>Detail_Contact.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="view\Festival_Aanpassen.xaml.cs">
-      <DependentUpon>Festival_Aanpassen.xaml</DependentUpon>
+    <Compile Include="view\AddGenre.xaml.cs">
+      <DependentUpon>AddGenre.xaml</DependentUpon>
     </Compile>
     <Compile Include="view\Hoofdmenu.xaml.cs">
       <DependentUpon>Hoofdmenu.xaml</DependentUpon>
@@ -78,8 +72,8 @@
     <Compile Include="view\LineUp.xaml.cs">
       <DependentUpon>LineUp.xaml</DependentUpon>
     </Compile>
-    <Compile Include="view\Podium_toevoegen.xaml.cs">
-      <DependentUpon>Podium_toevoegen.xaml</DependentUpon>
+    <Compile Include="view\AddStage.xaml.cs">
+      <DependentUpon>AddStage.xaml</DependentUpon>
     </Compile>
     <Compile Include="view\Ticketing.xaml.cs">
       <DependentUpon>Ticketing.xaml</DependentUpon>
@@ -87,15 +81,7 @@
     <Compile Include="view\Contact.xaml.cs">
       <DependentUpon>Contact.xaml</DependentUpon>
     </Compile>
-    <Page Include="view\Artist_toevoegen.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="view\Detail_Contact.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="view\Festival_Aanpassen.xaml">
+    <Page Include="view\AddGenre.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -125,7 +111,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="view\Podium_toevoegen.xaml">
+    <Page Include="view\AddStage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

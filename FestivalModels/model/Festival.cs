@@ -39,12 +39,13 @@ namespace Festival.Model
         {
             string sSql = "SELECT * FROM FestivalDate Order By Id DESC";
             DbDataReader reader = DbAccess.GetData(sSql);
+            reader.Read();
 
             Festival fest = new Festival();
 
-                    fest.StartDate = Convert.ToDateTime(reader[0]);
-                    fest.EndDate = Convert.ToDateTime(reader[1]);
-                    fest.RSS = (string)reader[2];
+                    fest.StartDate = reader.GetDateTime(1);
+                    fest.EndDate = reader.GetDateTime(2);
+                    //fest.RSS = (string)reader[3];
 
             reader.Close();
             return fest;
@@ -81,8 +82,7 @@ namespace Festival.Model
 
             for (int i = 0; i <= iDays; i++)
             {
-                DateTime newDate = StartDate;
-                newDate.AddDays(i);
+                DateTime newDate = StartDate.AddDays(i);
 
                 ocDate.Add(newDate);
             }

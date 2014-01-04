@@ -63,7 +63,7 @@ namespace Festival.Model
         public static ObservableCollection<LineUp> GetLineUp()
         {
             ObservableCollection<LineUp> ocLineUp = new ObservableCollection<LineUp>();
-            string sSql = "Select * from LineUp";
+            string sSql = "Select * from LineUp Order by Date ASC, Start ASC";
             DbDataReader reader = DbAccess.GetData(sSql);
             while (reader.Read())
             {
@@ -96,13 +96,13 @@ namespace Festival.Model
             return null;
         }
 
-        public static ObservableCollection<LineUp> GetLineUpByStage(string sStage)
+        public static ObservableCollection<LineUp> GetLineUpByStage(Stage sStage)
         {
             ObservableCollection<LineUp> ocLineUp = GetLineUp();
             ObservableCollection<LineUp> ocLineUpStage = new ObservableCollection<LineUp>();
             foreach (LineUp lu in ocLineUp)
             {
-                if (lu.Stage.Name == sStage)
+                if (lu.Stage.Name == sStage.Name)
                 {
                     ocLineUpStage.Add(lu);
                 }
@@ -113,7 +113,7 @@ namespace Festival.Model
 
         public static void AddLineUp(LineUp l)
         {
-            string sSql = "insert into LineUp (Date, From, Until, Stage, Band) values(@date, @from, @until, @stage, @band)";
+            string sSql = "insert into LineUp (Date, Start, Stop, Stage, Band) values(@date, @from, @until, @stage, @band)";
 
             DbParameter p1 = DbAccess.AddParameter("@date", l.Date);
             DbParameter p2 = DbAccess.AddParameter("@from", l.From);

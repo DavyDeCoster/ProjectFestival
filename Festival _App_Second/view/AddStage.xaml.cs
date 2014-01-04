@@ -17,9 +17,9 @@ namespace Festival__App_Second.view
     /// <summary>
     /// Interaction logic for Podium_toevoegen.xaml
     /// </summary>
-    public partial class Podium_toevoegen : Window
+    public partial class AddStage : Window
     {
-        public Podium_toevoegen()
+        public AddStage()
         {
             InitializeComponent();
         }

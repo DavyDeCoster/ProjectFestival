@@ -1,0 +1,14 @@
+﻿<Window x:Class="Festival__App_Second.view.AddStage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewModel="clr-namespace:Festival__App_Second.viewmodel"
+        Title="Stage Toevoegen" Height="110" Width="300">
+    <Window.DataContext>
+        <viewModel:LineUpVM/>
+    </Window.DataContext>
+    <StackPanel>
+        <TextBlock Text="Naam" Margin="0,0,0,10"/>
+        <TextBox Text="{Binding NewStage.Name}"  Margin="0,0,0,10"/>
+        <Button Content="Opslaan" Command="{Binding SaveStageCommand}" />
+    </StackPanel>
+</Window>
