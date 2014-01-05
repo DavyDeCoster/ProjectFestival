@@ -35,7 +35,10 @@
                 <TextBox Text="{Binding SelectedFrom}" Margin="0,0,0,10"/>
                 <TextBlock Text="Tot:" />
                 <TextBox Text="{Binding SelectedUntil}" Margin="0,0,0,10"/>
+                <StackPanel Orientation="Horizontal">
                 <Button Content="Toevoegen" Command="{Binding AddCommand}"/>
+                    <Button Content="Verwijderen" Command="{Binding RemoveCommand}" />
+                </StackPanel>
             </StackPanel>
             <StackPanel Margin="0,10,0,0">
                 <TextBlock Text="Aanmaken Band:" />
@@ -58,16 +61,25 @@
                     <Button Width="20" Content="+" Command="{Binding OpenAddGenreCommand}" />
                 </StackPanel>
                 <ComboBox Width="124" ItemsSource="{Binding Genres}" SelectedItem="{Binding SelectedGenre2}" DisplayMemberPath="Name" Margin="0,0,0,10"/>
+                <StackPanel Orientation="Horizontal">
                 <Button Content="Toevoegen" Command="{Binding AddBandCommand}"/>
+                    <Button Content="Verwijderen" Command="{Binding RemoveBandCommand}"/>
+                </StackPanel>
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Column="2" Grid.Row="2" Orientation="Horizontal">
-            <ListBox ItemsSource="{Binding SelectedStageList}" DisplayMemberPath="Date" HorizontalAlignment="Center" Width="150" VerticalAlignment="Top" Height="525" SelectedItem="{Binding NewLineUp}"/>
-            <ListBox ItemsSource="{Binding SelectedStageList}" DisplayMemberPath="Band.Name" HorizontalAlignment="Center" Width="150" VerticalAlignment="Top" Height="525" SelectedItem="{Binding NewLineUp}"/>
-            <ListBox ItemsSource="{Binding SelectedStageList}" DisplayMemberPath="From" HorizontalAlignment="Left" Width="150" VerticalAlignment="Top" Height="525" SelectedItem="{Binding NewLineUp}"/>
-            <ListBox ItemsSource="{Binding SelectedStageList}" DisplayMemberPath="Until" HorizontalAlignment="Left" Width="125" VerticalAlignment="Top" Height="525" SelectedItem="{Binding NewLineUp}"/>
+            <ListBox x:Name="lstDate" ItemsSource="{Binding SelectedStageList}" DisplayMemberPath="Date" HorizontalAlignment="Center" Width="150" VerticalAlignment="Top" Height="525" SelectedItem="{Binding SelectedLineUp}"/>
+            <ListBox x:Name="lstBand" ItemsSource="{Binding SelectedStageList}" DisplayMemberPath="Band.Name" HorizontalAlignment="Center" Width="150" VerticalAlignment="Top" Height="525" SelectedItem="{Binding SelectedLineUp}"/>
+            <ListBox x:Name="lstFrom" ItemsSource="{Binding SelectedStageList}" DisplayMemberPath="From" HorizontalAlignment="Left" Width="150" VerticalAlignment="Top" Height="525" SelectedItem="{Binding SelectedLineUp}"/>
+            <ListBox x:Name="lstUntil" ItemsSource="{Binding SelectedStageList}" DisplayMemberPath="Until" HorizontalAlignment="Left" Width="125" VerticalAlignment="Top" Height="525" SelectedItem="{Binding SelectedLineUp}"/>
         </StackPanel>
         <TextBlock x:Name="txtStage" Text="{Binding StageName}" Grid.Column="2" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="554" Grid.Row="0" TextAlignment="Center" Height="16"/>
         <TextBlock Text="Artisten" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="195" Margin="10,10,10,29.636" TextAlignment="Center" Height="19" Grid.RowSpan="2"/>
+        <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="1">
+            <TextBlock Text="{Binding DisplayMemberPath, ElementName=lstDate}" Grid.Column="2" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="149" Grid.Row="1" TextAlignment="Center" Height="16" Margin="0,6,0,5"/>
+            <TextBlock Text="{Binding DisplayMemberPath, ElementName=lstBand}" Grid.Column="2" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="149" Grid.Row="1" TextAlignment="Center" Height="16" Margin="0,6,0,5"/>
+            <TextBlock Text="{Binding DisplayMemberPath, ElementName=lstFrom}" Grid.Column="2" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="149" Grid.Row="1" TextAlignment="Center" Height="16" Margin="0,6,0,5"/>
+            <TextBlock Text="{Binding DisplayMemberPath, ElementName=lstUntil}" Grid.Column="2" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="149" Grid.Row="1" TextAlignment="Center" Height="16" Margin="0,6,0,5"/>
+        </StackPanel>
     </Grid>
 </UserControl>

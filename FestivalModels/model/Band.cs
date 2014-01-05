@@ -136,5 +136,13 @@ namespace Festival.Model
 
             DbAccess.ModifyData(sSql, p1, p2, p3, p4, p5, p6, p7);
         }
+
+        public static void DeleteBand(Band b)
+        {
+            string sSql = "Delete from Band where Id=@id";
+
+            DbParameter p1 = DbAccess.AddParameter("@id", b.ID);
+            DbAccess.ModifyData(sSql, p1);
+        }
     }
 }

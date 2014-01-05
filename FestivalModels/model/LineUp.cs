@@ -123,5 +123,13 @@ namespace Festival.Model
 
             DbAccess.ModifyData(sSql, p1, p2, p3, p4, p5);
         }
+
+        public static void RemoveLineUp(LineUp l)
+        {
+            string sSql = "Delete from LineUp where Id = @id";
+
+            DbParameter p1 = DbAccess.AddParameter("@id", l.Id);
+            DbAccess.ModifyData(sSql, p1);
+        }
     }
 }

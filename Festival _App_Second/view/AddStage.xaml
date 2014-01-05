@@ -7,7 +7,7 @@
         <viewModel:LineUpVM/>
     </Window.DataContext>
     <StackPanel>
-        <TextBlock Text="Naam" Margin="0,0,0,10"/>
+        <TextBlock Text="Stagenaam" Margin="0,0,0,10"/>
         <TextBox Text="{Binding NewStage.Name}"  Margin="0,0,0,10"/>
         <Button Content="Opslaan" Command="{Binding SaveStageCommand}" />
     </StackPanel>

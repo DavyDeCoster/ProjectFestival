@@ -210,8 +210,20 @@ namespace Festival__App_Second.viewmodel
             set
             {
                 _newLineUp = value;
-                ; OnPropertyChanged("NewLineUp"); }
+                
+                OnPropertyChanged("NewLineUp"); }
         }
+
+        private LineUp _selectedLineUp;
+
+        public LineUp SelectedLineUp
+        {
+            get { return _selectedLineUp; }
+            set { _selectedLineUp = value; 
+                
+                OnPropertyChanged("SelectedLineUp"); }
+        }
+        
 
         private Band _newBand;
 
@@ -299,6 +311,28 @@ namespace Festival__App_Second.viewmodel
         public ICommand AddCommand
         {
             get { return new RelayCommand(AddLineUp); }
+        }
+
+        public ICommand RemoveCommand
+        {
+            get { return new RelayCommand(RemoveLineUp); }
+        }
+
+        private void RemoveLineUp()
+        {
+            LineUp.RemoveLineUp(SelectedLineUp);
+            SelectedStageList = LineUp.GetLineUp();
+        }
+
+        public ICommand RemoveBandCommand
+        {
+            get { return new RelayCommand(RemoveBand); }
+        }
+
+        private void RemoveBand()
+        {
+            Band.DeleteBand(SelectedBand);
+            Bands = Band.GetBands();
         }
 
         private void AddLineUp()
