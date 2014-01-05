@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Festival.Model;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Common;
 using Festival.Model.DAL;
+using System.ComponentModel;
 
 namespace Festival.Model
 {
-    public class Contactpersoon
+    public class Contactpersoon:IDataErrorInfo
     {
         private int _id;
 
@@ -22,6 +24,7 @@ namespace Festival.Model
 
         private String _name;
 
+        [Required(ErrorMessage = "De naam van een contactpersoon is verplicht")]
         public String Name
         {
             get { return _name; }
@@ -30,6 +33,7 @@ namespace Festival.Model
 
         private String _company;
 
+        [Required(ErrorMessage = "De naam van een bedrijf is verplicht")]
         public String Company
         {
             get { return _company; }
@@ -38,6 +42,7 @@ namespace Festival.Model
 
         private ContactpersoonType _jobRole;
 
+        [Required(ErrorMessage = "De jobkeuze is verplicht")]
         public ContactpersoonType JobRole
         {
             get { return _jobRole; }
@@ -45,6 +50,7 @@ namespace Festival.Model
         }
         private Access _accesszone;
 
+        [Required(ErrorMessage = "De accesszone is verplicht")]
         public Access Accesszone
         {
             get { return _accesszone; }
@@ -53,6 +59,7 @@ namespace Festival.Model
 
         private String _city;
 
+        [Required(ErrorMessage = "De stad is verplicht")]
         public String City
         {
             get { return _city; }
@@ -61,6 +68,8 @@ namespace Festival.Model
 
         private String _email;
 
+        [Required(ErrorMessage = "De email is verplicht")]
+        [RegularExpression(@"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)\b", ErrorMessage = "Dit emailadres is niet van het juist formaat")]
         public String Email
         {
             get { return _email; }
@@ -69,6 +78,8 @@ namespace Festival.Model
 
         private String _phone;
 
+        [Required(ErrorMessage = "Het telefoonnummer is verplicht")]
+        [RegularExpression(@"^(?:(?:01\d{9}|2\d{7}) )*(?:01\d{9}|2\d{7})$", ErrorMessage = "Dit telefoonnummer is niet van het juist formaat")]
         public String Phone
         {
             get { return _phone; }
@@ -77,6 +88,8 @@ namespace Festival.Model
 
         private String _cellphone;
 
+        [Required(ErrorMessage = "Het gsmnummer is verplicht")]
+        [RegularExpression(@"^(?:(?:01\d{9}|2\d{7}) )*(?:01\d{9}|2\d{7})$", ErrorMessage = "Dit gsmnummer is niet van het juist formaat")]
         public String Cellphone
         {
             get { return _cellphone; }
@@ -210,6 +223,31 @@ namespace Festival.Model
             DbParameter p1 = DbAccess.AddParameter("@id", cp.ID);
 
             DbAccess.ModifyData(sSql, p1);
+        }
+
+        public string Error
+        {
+            get { return "Dit object is niet als juist gevalideerd"; }
+        }
+
+        public string this[string columName]
+        {
+            get
+            {
+                try
+                {
+                    object value = this.GetType().GetProperty(columName).GetValue(this);
+                    Validator.ValidateProperty(value, new ValidationContext(this, null, null)
+                    {
+                        MemberName = columName
+                    });
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                }
+                return string.Empty;
+            }
         }
     }
 }

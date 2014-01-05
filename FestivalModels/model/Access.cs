@@ -2,16 +2,19 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Common;
 using System.Linq;
 using System.Text;
 
 namespace Festival.Model
 {
-    public class Access
+    public class Access : IDataErrorInfo
     {
         private string _name;
 
+        [Required(ErrorMessage = "De naam van een Accesszone is verplicht")]
         public string Name
         {
             get { return _name; }
@@ -24,6 +27,26 @@ namespace Festival.Model
         {
             get { return _id; }
             set { _id = value; }
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                try
+                {
+                    object value = this.GetType().GetProperty(columnName).GetValue(this);
+                    Validator.ValidateProperty(value, new ValidationContext(this, null, null)
+                    {
+                        MemberName = columnName
+                    });
+                }
+                catch (ValidationException ex)
+                {
+                    return ex.Message;
+                }
+                return String.Empty;
+            }
         }
 
         public static ObservableCollection<Access> GetAccess()
@@ -90,6 +113,11 @@ namespace Festival.Model
             DbParameter p1 = DbAccess.AddParameter("@id", a.Id);
 
             DbAccess.ModifyData(sSql, p1);
+        }
+
+        public string Error
+        {
+            get { return "Dit object is niet goed gevalideerd"; }
         }
     }
 }

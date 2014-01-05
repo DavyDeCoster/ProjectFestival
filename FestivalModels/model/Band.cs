@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Data.Common;
 using Festival.Model.DAL;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Festival.Model
 {
-    public class Band
+    public class Band : IDataErrorInfo
     {
         private int _id;
 
@@ -21,6 +23,7 @@ namespace Festival.Model
 
         private String _name;
 
+        [Required(ErrorMessage = "De naam van een band is verplicht")]
         public String Name
         {
             get { return _name; }
@@ -29,6 +32,8 @@ namespace Festival.Model
 
         private String _picture;
 
+        [Required(ErrorMessage = "De url van de foto van een band is verplicht")]
+        [RegularExpression(@"^http\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(/\S*)?$", ErrorMessage = "De url is niet van het juiste formaat")]
         public String Picture
         {
             get { return _picture; }
@@ -37,6 +42,7 @@ namespace Festival.Model
 
         private String _description;
 
+        [Required(ErrorMessage = "De beschrijving van een band is verplicht")]
         public String Description
         {
             get { return _description; }
@@ -45,6 +51,8 @@ namespace Festival.Model
 
         private String _twitter;
 
+        [Required(ErrorMessage = "De Twitter van een band is verplicht")]
+        [RegularExpression(@"^http\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(/\S*)?$", ErrorMessage = "De url is niet van het juiste formaat")]
         public String Twitter
         {
             get { return _twitter; }
@@ -52,7 +60,8 @@ namespace Festival.Model
         }
 
         private String _facebook;
-
+        [Required(ErrorMessage = "De Facebook van een band is verplicht")]
+        [RegularExpression(@"^http\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(/\S*)?$", ErrorMessage = "De url is niet van het juiste formaat")]
         public String Facebook
         {
             get { return _facebook; }
@@ -60,7 +69,7 @@ namespace Festival.Model
         }
 
         private ObservableCollection<Genre> _genres;
-
+        [Required(ErrorMessage = "De genres van een band is verplicht")]
         public ObservableCollection<Genre> Genres
         {
             get { return _genres; }
@@ -143,6 +152,31 @@ namespace Festival.Model
 
             DbParameter p1 = DbAccess.AddParameter("@id", b.ID);
             DbAccess.ModifyData(sSql, p1);
+        }
+
+        public string Error
+        {
+            get { return "Dit object is niet als juist gevalideerd"; }
+        }
+
+        public string this[string columName]
+        {
+            get
+            {
+                try
+                {
+                    object value = this.GetType().GetProperty(columName).GetValue(this);
+                    Validator.ValidateProperty(value, new ValidationContext(this, null, null)
+                    {
+                        MemberName = columName
+                    });
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                }
+                return string.Empty;
+            }
         }
     }
 }
