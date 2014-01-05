@@ -24,6 +24,7 @@ namespace Festival.Model
         private String _name;
 
         [Required(ErrorMessage = "De naam van een band is verplicht")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$", ErrorMessage = "Er zijn geen speciale tekens toegelaten")]
         public String Name
         {
             get { return _name; }
@@ -33,7 +34,7 @@ namespace Festival.Model
         private String _picture;
 
         [Required(ErrorMessage = "De url van de foto van een band is verplicht")]
-        [RegularExpression(@"^http\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(/\S*)?$", ErrorMessage = "De url is niet van het juiste formaat")]
+        //[RegularExpression(@"^http\://[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(/\S*)?$", ErrorMessage = "De url is niet van het juiste formaat")]
         public String Picture
         {
             get { return _picture; }
@@ -43,6 +44,7 @@ namespace Festival.Model
         private String _description;
 
         [Required(ErrorMessage = "De beschrijving van een band is verplicht")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$", ErrorMessage = "Er zijn geen speciale tekens toegelaten")]
         public String Description
         {
             get { return _description; }
@@ -69,7 +71,7 @@ namespace Festival.Model
         }
 
         private ObservableCollection<Genre> _genres;
-        [Required(ErrorMessage = "De genres van een band is verplicht")]
+        //[Required(ErrorMessage = "De genres van een band is verplicht")]
         public ObservableCollection<Genre> Genres
         {
             get { return _genres; }
@@ -177,6 +179,11 @@ namespace Festival.Model
                 }
                 return string.Empty;
             }
+        }
+
+        public bool IsValid()
+        {
+            return Validator.TryValidateObject(this, new ValidationContext(this, null, null), null, true);
         }
     }
 }

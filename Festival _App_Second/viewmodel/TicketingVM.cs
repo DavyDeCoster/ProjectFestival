@@ -79,9 +79,37 @@ namespace Festival__App_Second.viewmodel
             set { _newTicket = value;  OnPropertyChanged("NewTicket");}
         }
 
+        private TicketType _newType;
+
+        public TicketType NewType
+        {
+            get 
+            {
+                if (_newType == null)
+                {
+                    _newType = new TicketType();
+                }
+
+                return _newType; 
+            }
+            set { _newType = value; OnPropertyChanged("NewType");}
+        }
+        
+
         public ICommand OrderCommand
         {
-            get { return new RelayCommand(OrderTicket);}
+            get { return new RelayCommand(OrderTicket, NewTicket.IsValid);}
+        }
+
+        public ICommand SaveTypeCommand
+        {
+            get { return new RelayCommand(SaveType, NewType.IsValid); }
+        }
+
+        private void SaveType()
+        {
+            TicketType.AddTicketType(NewType);
+            TicketTypes = TicketType.GetTicketType();
         }
 
         private void OrderTicket()

@@ -6,10 +6,12 @@ using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Festival.Model
 {
-    public class Stage
+    public class Stage : IDataErrorInfo
     {
         private int _id;
 
@@ -21,6 +23,8 @@ namespace Festival.Model
 
         private String _name;
 
+        [Required(ErrorMessage = "De naam van de stage is verplicht")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$", ErrorMessage = "Er zijn geen speciale tekens toegelaten")]
         public String Name
         {
             get { return _name; }
@@ -68,6 +72,36 @@ namespace Festival.Model
             DbParameter p1 = DbAccess.AddParameter("@name", s.Name);
 
             DbAccess.ModifyData(sSql, p1);
+        }
+
+        public string Error
+        {
+            get { return "Dit object is niet als juist gevalideerd"; }
+        }
+
+        public string this[string columName]
+        {
+            get
+            {
+                try
+                {
+                    object value = this.GetType().GetProperty(columName).GetValue(this);
+                    Validator.ValidateProperty(value, new ValidationContext(this, null, null)
+                    {
+                        MemberName = columName
+                    });
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                }
+                return string.Empty;
+            }
+        }
+
+        public bool IsValid()
+        {
+            return Validator.TryValidateObject(this, new ValidationContext(this, null, null), null, true);
         }
     }
 }

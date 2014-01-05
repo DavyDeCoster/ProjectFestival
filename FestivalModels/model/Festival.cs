@@ -6,13 +6,16 @@ using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace Festival.Model
 {
-    public class Festival
+    public class Festival : IDataErrorInfo
     {
         private DateTime _startDate;
 
+        [Required(ErrorMessage = "De startdatum van een festival is verplicht")]
         public DateTime StartDate
         {
             get { return _startDate; }
@@ -20,19 +23,11 @@ namespace Festival.Model
         }
 
         private DateTime _endDate;
-
+        [Required(ErrorMessage = "De einddatum van een festival is verplicht")]
         public DateTime EndDate
         {
             get { return _endDate; }
             set { _endDate = value; }
-        }
-
-        private string _rss;
-
-        public string RSS
-        {
-            get { return _rss; }
-            set { _rss = value; }
         }
 
         public static Festival GetFestival()
@@ -45,7 +40,6 @@ namespace Festival.Model
 
                     fest.StartDate = reader.GetDateTime(1);
                     fest.EndDate = reader.GetDateTime(2);
-                    //fest.RSS = (string)reader[3];
 
             reader.Close();
             return fest;
@@ -53,13 +47,12 @@ namespace Festival.Model
 
         public static void AddFestival(Festival f)
         {
-            string sSql = "insert into Festival (StartDate, EndDate, Rss) values(@startdate, @enddate, @rss)";
+            string sSql = "insert into FestivalDate (StartDate, EndDate) values(@startdate, @enddate)";
 
             DbParameter p1 = DbAccess.AddParameter("@startdate", f.StartDate);
             DbParameter p2 = DbAccess.AddParameter("@enddate", f.EndDate);
-            DbParameter p3 = DbAccess.AddParameter("@rss", f.RSS);
 
-            DbAccess.ModifyData(sSql, p1, p2, p3);
+            DbAccess.ModifyData(sSql, p1, p2);
         }
 
         public static ObservableCollection<DateTime> GetUniqueDays()
@@ -98,6 +91,36 @@ namespace Festival.Model
             tickDiff = tickDiff / 10000000;
             int iDays = (int)(tickDiff / 86400);
             return iDays;
+        }
+
+        public string Error
+        {
+            get { return "Dit object is niet als juist gevalideerd"; }
+        }
+
+        public string this[string columName]
+        {
+            get
+            {
+                try
+                {
+                    object value = this.GetType().GetProperty(columName).GetValue(this);
+                    Validator.ValidateProperty(value, new ValidationContext(this, null, null)
+                    {
+                        MemberName = columName
+                    });
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                }
+                return string.Empty;
+            }
+        }
+
+        public bool IsValid()
+        {
+            return Validator.TryValidateObject(this, new ValidationContext(this, null, null), null, true);
         }
     }
 }

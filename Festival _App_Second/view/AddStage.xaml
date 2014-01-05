@@ -9,6 +9,7 @@
     <StackPanel>
         <TextBlock Text="Stagenaam" Margin="0,0,0,10"/>
         <TextBox Text="{Binding NewStage.Name}"  Margin="0,0,0,10"/>
-        <Button Content="Opslaan" Command="{Binding SaveStageCommand}" />
+        <Button Content="Opslaan" Width="0" Height="0"/>
+            <Button Content="Opslaan" Command="{Binding SaveStageCommand}" />
     </StackPanel>
 </Window>

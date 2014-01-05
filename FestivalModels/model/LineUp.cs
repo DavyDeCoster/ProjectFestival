@@ -7,10 +7,12 @@ using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace Festival.Model
 {
-    public class LineUp
+    public class LineUp : IDataErrorInfo
     {
         private int _id;
 
@@ -22,6 +24,7 @@ namespace Festival.Model
 
         private DateTime _date;
 
+        [Required(ErrorMessage = "De datum van een Line Up is verplicht")]
         public DateTime Date
         {
             get { return _date; }
@@ -30,6 +33,8 @@ namespace Festival.Model
 
         private String _from;
 
+        [Required(ErrorMessage = "De starttijd van een Line Up is verplicht")]
+        [RegularExpression(@"^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$", ErrorMessage = "Dit tijdstip is niet juist van formaat! HH:MM")]
         public String From
         {
             get { return _from; }
@@ -37,7 +42,8 @@ namespace Festival.Model
         }
 
         private String _until;
-
+        [Required(ErrorMessage = "De eindtijd van een Line Up is verplicht")]
+        [RegularExpression(@"^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$", ErrorMessage = "Dit tijdstip is niet juist van formaat! HH:MM")]
         public String Until
         {
             get { return _until; }
@@ -46,6 +52,7 @@ namespace Festival.Model
 
         private Stage _stage;
 
+        [Required(ErrorMessage = "De stage van een line up is verplicht")]
         public Stage Stage
         {
             get { return _stage; }
@@ -53,7 +60,7 @@ namespace Festival.Model
         }
 
         private Band _band;
-
+        [Required(ErrorMessage = "De band van een line up is verplicht")]
         public Band Band
         {
             get { return _band; }
@@ -130,6 +137,62 @@ namespace Festival.Model
 
             DbParameter p1 = DbAccess.AddParameter("@id", l.Id);
             DbAccess.ModifyData(sSql, p1);
+        }
+
+        public string Error
+        {
+            get { return "Dit object is niet als juist gevalideerd"; }
+        }
+
+        public string this[string columName]
+        {
+            get
+            {
+                try
+                {
+                    object value = this.GetType().GetProperty(columName).GetValue(this);
+                    Validator.ValidateProperty(value, new ValidationContext(this, null, null)
+                    {
+                        MemberName = columName
+                    });
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                }
+                return string.Empty;
+            }
+        }
+
+        public bool IsValid()
+        {
+            return Validator.TryValidateObject(this, new ValidationContext(this, null, null), null, true);
+        }
+
+        public static LineUp GetLineUpByBand(int id)
+        {
+            string sSql = "Select * from LineUp Where Band = @band Order by Date ASC, Start ASC";
+
+            DbParameter p1 = DbAccess.AddParameter("@band", id);
+
+            DbDataReader reader = DbAccess.GetData(sSql, p1);
+            while (reader.Read())
+            {
+                LineUp Line = new LineUp()
+                {
+                    Id = (int)reader[0],
+                    Date = (DateTime)reader[1],
+                    From = (string)reader[2],
+                    Until = (string)reader[3],
+                    Stage = Stage.GetStageById((int)reader[4]),
+                    Band = Band.GetBandById((int)reader[5]),
+                };
+
+                return Line;
+            }
+
+            reader.Close();
+            return null;
         }
     }
 }

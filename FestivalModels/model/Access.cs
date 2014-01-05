@@ -15,6 +15,7 @@ namespace Festival.Model
         private string _name;
 
         [Required(ErrorMessage = "De naam van een Accesszone is verplicht")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$", ErrorMessage = "Er zijn geen speciale tekens toegelaten")]
         public string Name
         {
             get { return _name; }
@@ -118,6 +119,11 @@ namespace Festival.Model
         public string Error
         {
             get { return "Dit object is niet goed gevalideerd"; }
+        }
+
+        public bool IsValid()
+        {
+            return Validator.TryValidateObject(this, new ValidationContext(this, null, null), null, true);
         }
     }
 }

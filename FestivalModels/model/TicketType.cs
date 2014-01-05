@@ -6,10 +6,12 @@ using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Festival.Model
 {
-    public class TicketType
+    public class TicketType : IDataErrorInfo
     {
         private int _id;
 
@@ -21,6 +23,8 @@ namespace Festival.Model
 
         private String _name;
 
+        [Required(ErrorMessage = "De naam van de tickettype is verplicht")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$", ErrorMessage = "Er zijn geen speciale tekens toegelaten")]
         public String Name
         {
             get { return _name; }
@@ -29,6 +33,8 @@ namespace Festival.Model
 
         private Decimal _price;
 
+        [Required(ErrorMessage = "De prijs van het ticket is verplicht")]
+        [RegularExpression(@"[0-5]{1,10}", ErrorMessage = "Er zijn geen speciale tekens toegelaten")]
         public Decimal Price
         {
             get { return _price; }
@@ -37,6 +43,8 @@ namespace Festival.Model
 
         private int _availableTickets;
 
+        [Required(ErrorMessage = "Het aantal beschikbare ticketten is verplicht")]
+        [RegularExpression(@"[0-6]{1,10}", ErrorMessage = "Er zijn geen speciale tekens toegelaten")]
         public int AvailableTickets
         {
             get { return _availableTickets; }
@@ -46,7 +54,7 @@ namespace Festival.Model
         public static ObservableCollection<TicketType> GetTicketType()
         {
             ObservableCollection<TicketType> ocTicketType = new ObservableCollection<TicketType>();
-            string sSql = "Select * from TicketType";
+            string sSql = "Select * from TicketType order by Name ASC";
             DbDataReader reader = DbAccess.GetData(sSql);
             while (reader.Read())
             {
@@ -96,6 +104,36 @@ namespace Festival.Model
             DbParameter p2 = DbAccess.AddParameter("@id", Id);
 
             DbAccess.ModifyData(sSql, p1, p2);
+        }
+
+        public string Error
+        {
+            get { return "Dit object is niet als juist gevalideerd"; }
+        }
+
+        public string this[string columName]
+        {
+            get
+            {
+                try
+                {
+                    object value = this.GetType().GetProperty(columName).GetValue(this);
+                    Validator.ValidateProperty(value, new ValidationContext(this, null, null)
+                    {
+                        MemberName = columName
+                    });
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                }
+                return string.Empty;
+            }
+        }
+
+        public bool IsValid()
+        {
+            return Validator.TryValidateObject(this, new ValidationContext(this, null, null), null, true);
         }
     }
 }

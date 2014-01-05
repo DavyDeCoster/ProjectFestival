@@ -20,9 +20,9 @@ namespace FestivalMvc.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Band b = Band.GetBandById(id);
+            LineUp l = LineUp.GetLineUpByBand(id);
 
-            return View(b);
+            return View(l);
         }
     }
 }

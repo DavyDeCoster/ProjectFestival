@@ -1,34 +1,41 @@
-﻿@model Festival.Model.Band
+﻿@model Festival.Model.LineUp
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Html.DisplayFor(model => model.Band.Name);
 }
 
-<h2>Details</h2>
+<h2>@Html.DisplayFor(model => model.Band.Name)</h2>
 
 <fieldset>
     <legend>Band</legend>
-    <div>
-        @Html.DisplayFor(model => model.Name)
-    </div>
     <div class="display-field-picture" style="float:right">
-        <img src="@Html.DisplayFor(model => model.Picture)" alt="@Html.DisplayFor(model => model.Name)" />
+        <img src="@Html.DisplayFor(model => model.Band.Picture)" alt="@Html.DisplayFor(model => model.Band.Name)" />
     </div>
 
     <div class="display-label">
         Beschrijving:
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Description)
+        @Html.DisplayFor(model => model.Band.Description)
     </div>
 
     <div class="display-field">
-        <a href="@Html.DisplayFor(model => model.Twitter)">Twitter</a>
+        <a href="@Html.DisplayFor(model => model.Band.Twitter)">Twitter</a>
     </div>
 
     <div class="display-field">
-        <a href="@Html.DisplayFor(model => model.Facebook)">Facebook</a>
-        
+        <a href="@Html.DisplayFor(model => model.Band.Facebook)">Facebook</a>
+    </div>
+
+    <div class="display-label">
+        Optreden gepland op:
+    </div>
+
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Date) van
+        @Html.DisplayFor(model => model.From) tot
+        @Html.DisplayFor(model => model.Until) op
+        @Html.DisplayFor(model => model.Stage.Name)
     </div>
 </fieldset>
 <p>

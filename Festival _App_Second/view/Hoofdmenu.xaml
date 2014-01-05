@@ -19,10 +19,8 @@
             <RowDefinition Height="191*"/>
             <RowDefinition Height="62*"/>
         </Grid.RowDefinitions>
-        <ListBox x:Name="lstBerichten" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="10,10,0,17" Grid.Row="1" Width="882" Grid.RowSpan="2"/>
+        <ListBox x:Name="lstBerichten" ItemsSource="{Binding Messages}" DisplayMemberPath="MessageText" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="10,10,0,10" Grid.Row="1" Width="913" Grid.RowSpan="4"/>
         <TextBlock x:Name="lblBerichten" HorizontalAlignment="Left" Height="16" Margin="10,10,0,0" Grid.Row="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="217"><Run Language="nl-be" Text="Uw berichten:"/></TextBlock>
-        <TextBlock x:Name="lblFeed" HorizontalAlignment="Left" Height="15" Margin="10,10,0,0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="217"><Run Language="nl-be" Text="Festival Feed:"/><LineBreak/><Run Language="nl-be"/><LineBreak/><Run Language="nl-be" Text=":"/></TextBlock>
-        <ListBox x:Name="lstFeed" Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="171" Margin="10,0,0,10" Grid.Row="4" VerticalAlignment="Bottom" Width="882"/>
-        <Button x:Name="btnInstellingen" Content="Instellingen" HorizontalAlignment="Center" VerticalAlignment="Center" Width="228" Height="50" Margin="42,6,41,6" Grid.Column="2" Grid.Row="5"/>
+        <Button x:Name="btnInstellingen" Command="{Binding OpenInstellingenCommand}" Content="Instellingen" HorizontalAlignment="Center" VerticalAlignment="Center" Width="291" Height="50" Margin="10,6" Grid.Column="2" Grid.Row="5"/>
     </Grid>
 </UserControl>

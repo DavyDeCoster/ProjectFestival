@@ -110,6 +110,7 @@ namespace Festival__App_Second.viewmodel
             set 
             { 
                 _selectedGenre1 = value;
+                NewGenre = SelectedGenre1;
                 OnPropertyChanged("SelectedGenre1");
             }
         }
@@ -187,9 +188,11 @@ namespace Festival__App_Second.viewmodel
             set 
             { 
                 _selectedStage = value;
+                NewStage = SelectedStage;
                 NewLineUp.Stage = SelectedStage;
                 SelectedStageList = LineUp.GetLineUpByStage(SelectedStage);
                 StageName = SelectedStage.Name;
+
                 OnPropertyChanged("SelectedStage");       
             }
         }
@@ -310,7 +313,7 @@ namespace Festival__App_Second.viewmodel
 
         public ICommand AddCommand
         {
-            get { return new RelayCommand(AddLineUp); }
+            get { return new RelayCommand(AddLineUp, NewLineUp.IsValid); }
         }
 
         public ICommand RemoveCommand
@@ -382,7 +385,7 @@ namespace Festival__App_Second.viewmodel
 
         public ICommand AddBandCommand
         {
-            get { return new RelayCommand(AddBand); }
+            get { return new RelayCommand(AddBand, NewBand.IsValid); }
         }
 
         public ICommand OpenAddStageCommand
@@ -392,7 +395,7 @@ namespace Festival__App_Second.viewmodel
 
         public ICommand SaveStageCommand
         {
-            get { return new RelayCommand(SaveStage); }
+            get { return new RelayCommand(SaveStage, NewStage.IsValid); }
         }
 
         public ICommand OpenAddGenreCommand
@@ -402,7 +405,18 @@ namespace Festival__App_Second.viewmodel
 
         public ICommand SaveGenreCommand
         {
-            get { return new RelayCommand(SaveGenre); }
+            get { return new RelayCommand(SaveGenre, NewGenre.IsValid); }
+        }
+
+        public ICommand AllStagesCommand
+        {
+            get { return new RelayCommand(ShowAllStages); }
+        }
+
+        private void ShowAllStages()
+        {
+            SelectedStageList = LineUp.GetLineUp();
+            SelectedStage.Name = "All Stages";
         }
 
         private void SaveGenre()

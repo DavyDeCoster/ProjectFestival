@@ -25,6 +25,7 @@ namespace Festival.Model
         private String _name;
 
         [Required(ErrorMessage = "De naam van een contactpersoon is verplicht")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$", ErrorMessage = "Er zijn geen speciale tekens toegelaten")]
         public String Name
         {
             get { return _name; }
@@ -34,6 +35,7 @@ namespace Festival.Model
         private String _company;
 
         [Required(ErrorMessage = "De naam van een bedrijf is verplicht")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$", ErrorMessage = "Er zijn geen speciale tekens toegelaten")]
         public String Company
         {
             get { return _company; }
@@ -60,6 +62,7 @@ namespace Festival.Model
         private String _city;
 
         [Required(ErrorMessage = "De stad is verplicht")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$", ErrorMessage = "Er zijn geen speciale tekens toegelaten")]
         public String City
         {
             get { return _city; }
@@ -69,7 +72,7 @@ namespace Festival.Model
         private String _email;
 
         [Required(ErrorMessage = "De email is verplicht")]
-        [RegularExpression(@"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)\b", ErrorMessage = "Dit emailadres is niet van het juist formaat")]
+        [EmailAddress(ErrorMessage = "Een emailadres moet van het formaat 'example@example.org' zijn")]
         public String Email
         {
             get { return _email; }
@@ -79,7 +82,7 @@ namespace Festival.Model
         private String _phone;
 
         [Required(ErrorMessage = "Het telefoonnummer is verplicht")]
-        [RegularExpression(@"^(?:(?:01\d{9}|2\d{7}) )*(?:01\d{9}|2\d{7})$", ErrorMessage = "Dit telefoonnummer is niet van het juist formaat")]
+        [RegularExpression(@"^\+[0-9]{0,3}([0-9]{3}|[0-9]{2}/)([0-9]{2,3}|[0-9]{2}).[0-9]{2}.[0-9]{2}$", ErrorMessage = "Dit telefoonnummer is niet van het juist formaat")]
         public String Phone
         {
             get { return _phone; }
@@ -89,7 +92,7 @@ namespace Festival.Model
         private String _cellphone;
 
         [Required(ErrorMessage = "Het gsmnummer is verplicht")]
-        [RegularExpression(@"^(?:(?:01\d{9}|2\d{7}) )*(?:01\d{9}|2\d{7})$", ErrorMessage = "Dit gsmnummer is niet van het juist formaat")]
+        [RegularExpression(@"^\+[0-9]{0,3}([0-9]{3}|[0-9]{2}/)([0-9]{2,3}|[0-9]{2}).[0-9]{2}.[0-9]{2}$", ErrorMessage = "Dit gsmnummer is niet van het juist formaat")]
         public String Cellphone
         {
             get { return _cellphone; }
@@ -248,6 +251,11 @@ namespace Festival.Model
                 }
                 return string.Empty;
             }
+        }
+
+        public bool IsValid()
+        {
+            return Validator.TryValidateObject(this, new ValidationContext(this, null, null),null, true);
         }
     }
 }

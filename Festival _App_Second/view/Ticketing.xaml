@@ -14,26 +14,43 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="btnBestellen" Content="Bestellen" Command="{Binding OrderCommand}" HorizontalAlignment="Center" Height="104"  VerticalAlignment="Center" Width="205" Grid.Row="5" Grid.Column="3" Margin="10"/>
-        <Button x:Name="btnLijst" Content="Lijst" HorizontalAlignment="Center" Height="104"  VerticalAlignment="Center" Width="205" Grid.Row="5" Grid.Column="1" Margin="10"/>
-        <Label x:Name="lblSoort" Content="Type ticket" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" RenderTransformOrigin="0.041,1.361"/>
-        <ListBox x:Name="lstTypeTickets" ItemsSource="{Binding TicketTypes}" SelectedItem="{Binding SelectedTicketType}" DisplayMemberPath="Name" HorizontalAlignment="Center" Height="169" Grid.Row="2" Grid.RowSpan="3" VerticalAlignment="Center" Width="205" Margin="10"/>
-        <TextBlock x:Name="lblBeschikbaar" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center"><Run Language="nl-be" Text="Beschikbaar"/></TextBlock>
-        <TextBox x:Name="txtBeschikbaar" Grid.Column="1" Text="{Binding SelectedTicketType.AvailableTickets}" HorizontalAlignment="Center" Height="43" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Width="205" Margin="10"/>
-        <TextBlock x:Name="lblNaam" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Margin="156,27,13,10" Width="56" Height="25"><Run Language="nl-be" Text="Naam:"/></TextBlock>
-        <TextBox x:Name="txtNaam" Grid.Column="3" Text="{Binding NewTicket.Ticketholder}" HorizontalAlignment="Center" Height="42" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Width="205" Margin="10"/>
-        <TextBlock x:Name="lblNaam_Copy" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Margin="156,24,7,10" RenderTransformOrigin="-0.836,0.718" Width="62" Height="29"><Run Language="nl-be" Text="Email:"/></TextBlock>
-        <TextBox x:Name="txtEmail" Grid.Column="3" Text="{Binding NewTicket.TicketholderEmail}" HorizontalAlignment="Left" Height="43" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Width="205" Margin="10,10,0,10"/>
-        <TextBlock x:Name="lblNaam_Copy1" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center" Margin="156,24,7,10" RenderTransformOrigin="-0.836,0.718" Width="62" Height="29"><Run Language="nl-be" Text="Type:"/></TextBlock>
-        <ComboBox x:Name="cboType" Grid.Column="3" ItemsSource="{Binding TicketTypes}" SelectedItem="{Binding SelectedTicketType}" DisplayMemberPath="Name" HorizontalAlignment="Center" Height="43" Grid.Row="3" VerticalAlignment="Center" Width="205" Margin="10"/>
-        <TextBlock x:Name="lblAantal" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" Margin="170,24,5,10" Width="50" Height="29"><Run Language="nl-be" Text="Aantal:"/></TextBlock>
-        <TextBox x:Name="txtAantal" Grid.Column="3" Text="{Binding NewTicket.Amount}" HorizontalAlignment="Center" Height="43" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" Width="205" Margin="10"/>
-        </Grid>
+        <Button x:Name="btnBestellen" Content="Bestellen" Command="{Binding OrderCommand}" HorizontalAlignment="Center" Height="104"  VerticalAlignment="Center" Width="205" Grid.Row="4" Grid.Column="3" Margin="10"/>
+        <Label x:Name="lblSoort" Content="Type ticket" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <ListBox ItemsSource="{Binding TicketTypes}" Margin="10,0,0,0" DisplayMemberPath="Name" Width="220"/>
+            <ListBox ItemsSource="{Binding TicketTypes}" DisplayMemberPath="AvailableTickets" Width="220"/>
+        </StackPanel>
+        
+        <TextBlock x:Name="lblBeschikbaar" Text="Beschikbare ticketten" Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center"/>
+        <TextBlock x:Name="lblNaam" Text="Naam:" Grid.Column="2" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="45" Height="24" Margin="180,20,0,21"/>
+        <TextBox x:Name="txtNaam" Grid.Column="3" Text="{Binding NewTicket.Ticketholder}" HorizontalAlignment="Center" Height="42" TextWrapping="Wrap" VerticalAlignment="Center" Width="205" Margin="10,10,10,10"/>
+        <TextBlock x:Name="lblNaam_Copy" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Margin="187,47,0,33" RenderTransformOrigin="-0.836,0.718" Width="38" Height="29"><Run Language="nl-be" Text="Email:"/></TextBlock>
+        <TextBox x:Name="txtEmail" Grid.Column="3" Text="{Binding NewTicket.TicketholderEmail}" HorizontalAlignment="Left" Height="43" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Width="205" Margin="10,10,0,10"/>
+        <TextBlock x:Name="lblNaam_Copy1" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Margin="187,47,7,33" RenderTransformOrigin="-0.836,0.718" Width="31" Height="29"><Run Language="nl-be" Text="Type:"/></TextBlock>
+        <ComboBox x:Name="cboType" Grid.Column="3" ItemsSource="{Binding TicketTypes}" SelectedItem="{Binding SelectedTicketType}" DisplayMemberPath="Name" HorizontalAlignment="Center" Height="43" Grid.Row="2" VerticalAlignment="Center" Width="205" Margin="10"/>
+        <TextBlock x:Name="lblAantal" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center" Margin="180,47,5,33" Width="40" Height="28"><Run Language="nl-be" Text="Aantal:"/></TextBlock>
+        <TextBox x:Name="txtAantal" Grid.Column="3" Text="{Binding NewTicket.Amount}" HorizontalAlignment="Center" Height="43" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center" Width="205" Margin="10"/>
+        <StackPanel Grid.Column="0" Grid.Row="3" Grid.RowSpan="2" Orientation="Vertical">
+        <TextBlock Text="Nieuw Tickettype" TextAlignment="Center" Margin="0,10,0,25" FontSize="18" FontWeight="Bold"/>
+        <StackPanel  Orientation="Horizontal">
+           <StackPanel>
+                <TextBlock Text="Naam" Margin="25,0,0,10" TextAlignment="Right"/> 
+                <TextBlock Text="Prijs" Margin="25,0,0,10" TextAlignment="Right"/>
+                <TextBlock Text="Aantal" Margin="25,0,0,10" TextAlignment="Right"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBox Text="{Binding NewType.Name}" Margin="0,0,0,10" Width="125"/>
+                <TextBox Text="{Binding NewType.Price}" Margin="0,0,0,10" Width="125"/>
+                <TextBox Text="{Binding NewType.AvailableTickets}" Margin="0,0,0,10" Width="125"/>
+            </StackPanel>
+            </StackPanel>
+            <Button Content="Toevoegen" Command="{Binding SaveTypeCommand}"/> 
+        </StackPanel>
+    </Grid>
 </UserControl>

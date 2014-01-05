@@ -1,0 +1,32 @@
+﻿<Window x:Class="Festival__App_Second.view.Instellingen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewModel="clr-namespace:Festival__App_Second.viewmodel"
+        Title="Instellingen" Height="100" Width="300">
+    <Window.DataContext>
+        <viewModel:HoofdmenuVM/>
+    </Window.DataContext>
+    <Grid>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Startdatum" Margin="0,0,10,0"/>
+                <DatePicker>
+                    <DatePicker.SelectedDate>
+                        <Binding Path="SelectedStartDate" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                        </Binding>
+                    </DatePicker.SelectedDate>
+                </DatePicker>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Einddatum" Margin="0,0,10,0"/>
+                <DatePicker>
+                    <DatePicker.SelectedDate>
+                        <Binding Path="SelectedEndDate" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                        </Binding>
+                    </DatePicker.SelectedDate>
+                </DatePicker>
+            </StackPanel>
+            <Button Command="{Binding SaveFestivalCommand}" Content="Opslaan"/>
+        </StackPanel>
+    </Grid>
+</Window>

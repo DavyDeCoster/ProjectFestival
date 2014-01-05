@@ -6,6 +6,8 @@ using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Festival.Model
 {
@@ -21,6 +23,8 @@ namespace Festival.Model
 
         private String _ticketholder;
 
+        [Required(ErrorMessage = "De naam van de ticketholder is verplicht")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$", ErrorMessage = "Er zijn geen speciale tekens toegelaten")]
         public String Ticketholder
         {
             get { return _ticketholder; }
@@ -29,6 +33,8 @@ namespace Festival.Model
 
         private String _ticketholderEmail;
 
+        [Required(ErrorMessage = "Het emailadres is verplicht")]
+        [EmailAddress(ErrorMessage = "Een emailadres moet van het formaat 'example@example.org' zijn")]
         public String TicketholderEmail
         {
             get { return _ticketholderEmail; }
@@ -37,6 +43,7 @@ namespace Festival.Model
 
         private TicketType _ticketType;
 
+        [Required(ErrorMessage = "Het tickettype is verplicht")]
         public TicketType TicketType
         {
             get { return _ticketType; }
@@ -45,6 +52,8 @@ namespace Festival.Model
 
         private int _amount;
 
+        [Required(ErrorMessage = "Het aantal is verplicht")]
+        [RegularExpression(@"[0-2]{1,10}", ErrorMessage = "Er zijn geen speciale tekens toegelaten")]
         public int Amount
         {
             get { return _amount; }
@@ -120,6 +129,37 @@ namespace Festival.Model
 
             int iChange = T.TicketType.AvailableTickets - T.Amount;
             TicketType.ChangeAvailable(T.TicketType.ID, iChange);
+        }
+
+        public string Error
+        {
+            get { return "Dit object is niet als juist gevalideerd"; }
+        }
+
+        public string this[string columName]
+        {
+            get
+            {
+                try
+                {
+                    object value = this.GetType().GetProperty(columName).GetValue(this);
+                    Validator.ValidateProperty(value, new ValidationContext(this, null, null)
+                    {
+                        MemberName = columName
+                    });
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                }
+                return string.Empty;
+            }
+        }
+
+        public bool IsValid()
+        {
+            return Validator.TryValidateObject(this, new ValidationContext(this, null, null),
+            null, true);
         }
     }
 }

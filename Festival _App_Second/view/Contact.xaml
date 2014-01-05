@@ -42,7 +42,7 @@
                     <TextBox Grid.Column="3" Text="{Binding NewContact.Email}" HorizontalAlignment="Center" Height="23" VerticalAlignment="Center" Width="193" Margin="0,0,0,10"/>
                     <TextBox Grid.Column="3" Text="{Binding NewContact.Phone}" HorizontalAlignment="Center" Height="23" VerticalAlignment="Center" Width="193" Margin="0,0,0,10"/>
                     <TextBox Grid.Column="3" Text="{Binding NewContact.Cellphone}" HorizontalAlignment="Center" Height="23" VerticalAlignment="Center" Width="193" Margin="0,0,0,10"/>
-                    <CheckBox Grid.Column="3" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="193" IsThreeState="True" IsChecked="{Binding NewContact.Print}"/>
+                    <CheckBox Grid.Column="3" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="193" IsChecked="{Binding NewContact.Print}"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -52,18 +52,20 @@
         </StackPanel>
 
         <StackPanel Grid.Column="2" Margin="10">
+            <TextBlock Text="Nieuwe Job" TextAlignment="Center" FontWeight="Bold" FontSize="18" Margin="0,0,0,10"/>
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
-                    <TextBlock Text="Naam"  Height="23" Margin="0,0,0,10"/>
+                    <TextBlock Text="Naam:"  Height="23" Margin="0,0,0,10"/>
                 </StackPanel>
                 <StackPanel>
-                    <TextBox Grid.Column="3" Text="{Binding NewConType.Name}" HorizontalAlignment="Center" Height="23" VerticalAlignment="Center" Width="193" Margin="0,0,0,10"/>
+                    <TextBox Text="{Binding NewConType.Name}" HorizontalAlignment="Center" Height="23" VerticalAlignment="Center" Width="193" Margin="0,0,0,10"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button x:Name="btnJobVerwijderen" Command="{Binding JobDeleteCommand}" Content="Verwijderen" Grid.Column="2" HorizontalAlignment="Left" Height="37" VerticalAlignment="Top" Width="83"/>
-                <Button x:Name="BtnJobToevoegen" Command="{Binding JobSaveCommand}" Content="Toevoegen" Grid.Column="2" HorizontalAlignment="Left" Height="37" VerticalAlignment="Top" Width="83"/>
+                <Button x:Name="btnJobVerwijderen" Command="{Binding JobDeleteCommand}" Content="Verwijderen" Grid.Column="2" HorizontalAlignment="Left" Height="37" VerticalAlignment="Top"/>
+                <Button x:Name="BtnJobToevoegen" Command="{Binding JobSaveCommand}" Content="Toevoegen" Grid.Column="2" HorizontalAlignment="Left" Height="37" VerticalAlignment="Top"/>
             </StackPanel>
+            <TextBlock Text="Nieuwe accss" TextAlignment="Center" FontWeight="Bold" FontSize="18" Margin="0,25,0,10"/>
             <StackPanel Orientation="Horizontal">
                 <StackPanel>
                     <TextBlock Text="Naam"  Height="23" Margin="0,0,0,10"/>
@@ -73,8 +75,8 @@
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button x:Name="btnAccessVerwijderen" Command="{Binding AccessDeleteCommand}" Content="Verwijderen" Grid.Column="2" HorizontalAlignment="Left" Height="37" VerticalAlignment="Top" Width="83"/>
-                <Button x:Name="BtnAccessToevoegen" Command="{Binding AccessSaveCommand}" Content="Toevoegen" Grid.Column="2" HorizontalAlignment="Left" Height="37" VerticalAlignment="Top" Width="83"/>
+                <Button x:Name="btnAccessVerwijderen" Command="{Binding AccessDeleteCommand}" Content="Verwijderen" HorizontalAlignment="Left" Height="37" VerticalAlignment="Top"/>
+                <Button x:Name="BtnAccessToevoegen" Command="{Binding AccessSaveCommand}" Content="Toevoegen" HorizontalAlignment="Left" Height="37" VerticalAlignment="Top"/>
             </StackPanel>
         </StackPanel>
     </Grid>

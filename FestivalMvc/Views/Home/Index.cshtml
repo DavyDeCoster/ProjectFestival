@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<Festival.Model.LineUp>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Line-up";
 }
 
-<h2>Index</h2>
+<h2>Line-up</h2>
 
 @foreach (var item in Model) {
     <div style="background-image:url(@Html.DisplayFor(modelItem => item.Band.Picture)); Width:250px; Height: 150px; float: left;" >
         @Html.DisplayFor(modelItem => item.Band.Name)
-        @Html.DisplayFor(modelItem => item.Date.DayOfWeek)
+        @Html.DisplayFor(modelItem => item.Date)
 
         @Html.ActionLink("Meer", "Details", new { id=item.Band.ID })
     </div>

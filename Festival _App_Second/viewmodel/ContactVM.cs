@@ -62,6 +62,7 @@ namespace Festival__App_Second.viewmodel
             if (_selectedConType != null)
             {
                 NewConType = SelectedConType;
+                NewContact.JobRole = SelectedConType;
             }
                 OnPropertyChanged("SelectedConType"); }
 	    }
@@ -75,6 +76,7 @@ namespace Festival__App_Second.viewmodel
             if (_selectedAccess != null)
             {
                 NewAccess = SelectedAccess;
+                NewContact.Accesszone = SelectedAccess;
             }
                 
                 OnPropertyChanged("SelectedAccess"); }
@@ -161,12 +163,11 @@ namespace Festival__App_Second.viewmodel
 
         public ICommand SaveCommand
         {
-            get { return new RelayCommand(SaveContact); }
+            get { return new RelayCommand(SaveContact, NewContact.IsValid); }
         }
 
         public void SaveContact()
         {
-           NewContact.JobRole = SelectedConType;
            NewContact.Accesszone = SelectedAccess;
 
             Contactpersoon.AddContact(NewContact);
@@ -174,7 +175,7 @@ namespace Festival__App_Second.viewmodel
 
         public ICommand DeleteCommand
         {
-            get { return new RelayCommand(DeleteContact); }
+            get { return new RelayCommand(DeleteContact, NewContact.IsValid); }
         }
 
         private void DeleteContact()
@@ -184,7 +185,7 @@ namespace Festival__App_Second.viewmodel
 
         public ICommand JobSaveCommand
         {
-            get { return new RelayCommand(SaveConType); }
+            get { return new RelayCommand(SaveConType, NewConType.IsValid); }
         }
 
         public void SaveConType()
@@ -206,7 +207,7 @@ namespace Festival__App_Second.viewmodel
 
         public ICommand AccessSaveCommand
         {
-            get { return new RelayCommand(SaveAccess); }
+            get { return new RelayCommand(SaveAccess, NewAccess.IsValid); }
         }
 
         public void SaveAccess()

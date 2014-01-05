@@ -9,6 +9,8 @@
     <StackPanel>
         <TextBlock Text="Genrenaam:" Margin="0,0,0,10"/>
         <TextBox Text="{Binding NewGenre.Name}"  Margin="0,0,0,10"/>
+        <Button Width="0" Height="0"/>
         <Button Content="Opslaan" Command="{Binding SaveGenreCommand}" />
+
     </StackPanel>
 </Window>

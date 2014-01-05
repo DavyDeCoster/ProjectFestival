@@ -6,10 +6,12 @@ using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace Festival.model
 {
-    public class Message
+    public class Message : IDataErrorInfo
     {
         private int _id;
 
@@ -21,30 +23,14 @@ namespace Festival.model
 
         private string _messageText;
 
+        [Required(ErrorMessage = "De tekst is verplicht")]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$", ErrorMessage = "Er zijn geen speciale tekens toegelaten")]
         public string MessageText
         {
             get { return _messageText; }
             set { _messageText = value; }
-        }
-
-        private string _title;
-
-        public string Title
-        {
-            get { return _title; }
-            set { _title = value; }
-        }
-
-        private string _author;
-
-        public string Author
-        {
-            get { return _author; }
-            set { _author = value; }
-        }
+        }      
         
-        
-
         public static ObservableCollection<Message> GetMessages()
         {
             ObservableCollection<Message> ocMessage = new ObservableCollection<Message>();
@@ -55,9 +41,7 @@ namespace Festival.model
                 Message a = new Message()
                 {
                     Id = (int)reader[0],
-                    Title = (string)reader[1],
                     MessageText = (string)reader[2],
-                    Author = (string)reader[3]
                 };
                 ocMessage.Add(a);
             }
@@ -67,14 +51,41 @@ namespace Festival.model
 
         public static void AddMessage(Message m)
         {
-            string sSql = "insert into Message (Message, Title, Author) values (@message, @title, @author)";
+            string sSql = "insert into Message (Message) values (@message)";
 
             DbParameter p1 = DbAccess.AddParameter("@message", m.MessageText);
-            DbParameter p2 = DbAccess.AddParameter("@title", m.Title);
-            DbParameter p3 = DbAccess.AddParameter("@author", m.Author);
 
-            DbAccess.ModifyData(sSql, p1,p2,p3);
+            DbAccess.ModifyData(sSql, p1);
         }
-        
+
+        public string Error
+        {
+            get { return "Dit object is niet als juist gevalideerd"; }
+        }
+
+        public string this[string columName]
+        {
+            get
+            {
+                try
+                {
+                    object value = this.GetType().GetProperty(columName).GetValue(this);
+                    Validator.ValidateProperty(value, new ValidationContext(this, null, null)
+                    {
+                        MemberName = columName
+                    });
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                }
+                return string.Empty;
+            }
+        }
+
+        public bool IsValid()
+        {
+            return Validator.TryValidateObject(this, new ValidationContext(this, null, null), null, true);
+        }
     }
 }
